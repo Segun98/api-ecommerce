@@ -1,6 +1,6 @@
 ### Back-End of an e-commerce application
 
-###### tech I plan to use:
+##### Technologies I plan to use:
 
 > Nodejs/Expressjs
 
