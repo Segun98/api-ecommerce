@@ -1,14 +1,25 @@
-const express = require('express')
-const app = express()
-const PORT = process.env.PORT || 8080
+const express = require('express');
+const {
+    ApolloServer
+} = require('apollo-server-express');
+const typeDefs = require("./src/typedefs")
+const resolvers = require("./src/resolvers")
 
+const server = new ApolloServer({
+    typeDefs,
+    resolvers
+});
 
+const app = express();
 
-app.get("/", (req, res) => {
-    res.send("hello world")
-})
+server.applyMiddleware({
+    app
+});
 
+const PORT = process.env.NODE_ENV || 4000
 
-app.listen(PORT, () => {
-    console.log("Server started on port " + PORT);
-})
+app.listen({
+        port: PORT
+    }, () =>
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+);
