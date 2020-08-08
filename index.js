@@ -4,6 +4,7 @@ const {
 } = require('apollo-server-express');
 const typeDefs = require("./src/typedefs")
 const resolvers = require("./src/resolvers")
+require('dotenv').config()
 
 const server = new ApolloServer({
     typeDefs,

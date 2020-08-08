@@ -1,19 +1,14 @@
-const data = []
+const {
+    Pool
+} = require('pg')
 
-module.exports = data
 
-// const data = [{
-//     name: "segun",
-//     role: "admin",
-//     password: "ugebh3w",
-//     pending: false,
-//     email: "shsgbh@mail.com"
-// },
-// {
-//     name: "thomas",
-//     role: "customer",
-//     password: "ugebh3w",
-//     pending: true,
-//     email: "shsgbh@mail.com"
-// }
-// ]
+const pool = new Pool({
+    user: process.env.PGUSER,
+    password: process.env.PGPASSWORD,
+    host: process.env.PGHOST,
+    port: process.env.PGPORT,
+    database: process.env.PGDATABASE
+})
+
+module.exports = pool

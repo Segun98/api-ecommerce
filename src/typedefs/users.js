@@ -4,11 +4,14 @@ const {
 
 module.exports = gql `
 type users{
+    id:ID
     name: String,
     email: String
     password: String,
     role: String,
-    pending: Boolean
+    phone: String,
+    pending: String,
+    created_at: String
   }
 
   type Query {
@@ -16,6 +19,6 @@ type users{
    user(name: String!):users
  }
   type Mutation {
-    createUser(name: String!, email: String!, password: String!, role: String!, pending: Boolean!):users
+    createUser(name: String!, email: String!, password: String!, phone:String, role: String!, pending: String!):users
   }
 `;

@@ -1,5 +1,7 @@
-const users = require("./users")
-const user = require("./user")
+const {
+    user,
+    users
+} = require("./users")
 
 module.exports = {
     users,
