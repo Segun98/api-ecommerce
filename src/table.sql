@@ -1,3 +1,5 @@
+-- Where i write out my queries to test 
+
 CREATE TYPE user_role AS enum
 ('admin', 'customer', 'vendor');
 
