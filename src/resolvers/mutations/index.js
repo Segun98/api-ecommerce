@@ -1,7 +1,7 @@
 const {
     signUp,
     logIn
-} = require("./users")
+} = require("./signup-login")
 
 module.exports = {
     signUp,

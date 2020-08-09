@@ -4,10 +4,8 @@
 */
 
 async function users(_, {}, {
-    req,
     pool
 }) {
-    console.log(req.body);
     try {
         const res = await pool.query(`select * from users order by created_at desc`)
         return res.rows
