@@ -2,10 +2,13 @@ const express = require('express');
 const {
     ApolloServer
 } = require('apollo-server-express');
-const typeDefs = require("./src/typedefs")
-const resolvers = require("./src/resolvers")
-const pool = require("./src/db")
+const typeDefs = require("./typedefs")
+const resolvers = require("./resolvers")
+const pool = require("./db")
+const cors = require("cors")
 require('dotenv').config()
+
+
 
 const server = new ApolloServer({
     typeDefs,
@@ -22,6 +25,11 @@ const server = new ApolloServer({
 
 const app = express();
 app.use(express.json())
+app.use(cors({
+    credentials: true,
+    // origin: 'http://localhost:3000',  
+    // preflightContinue: true,
+}));
 
 server.applyMiddleware({
     app

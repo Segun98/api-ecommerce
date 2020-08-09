@@ -3,6 +3,10 @@ const {
 } = require("../../helpers/auth/joivalidate")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const {
+    createRefreshToken,
+    createToken
+} = require("../../helpers/auth/create-tokens")
 
 /*
  Returns all users for admin dashboard.
@@ -48,7 +52,9 @@ async function signUp(_, {
         // Signing up a user 
         const res = await pool.query("INSERT INTO users (first_name,last_name,email,password,phone,role,pending) VALUES($1, $2, $3, $4, $5,$6,$7) RETURNING * ", [first_name, last_name, email, hashedpassword, phone, role, pending]);
 
-        return res.rows[0]
+        return {
+            message: "sign up successful"
+        }
 
     } catch (err) {
         throw new Error(err.message)
@@ -58,25 +64,43 @@ async function signUp(_, {
 
 async function logIn(_, {
     email,
-    password,
-    role
+    password
 }, {
+    res,
     pool
 }) {
     try {
-        const res = await pool.query("select * from users where email = $1", [email]);
+        const users = await pool.query("select * from users where email = $1", [email]);
 
-        if (res.rows.length === 0) {
+        if (users.rows.length === 0) {
             throw new Error("wrong email or password")
         }
-        const validPass = await bcrypt.compare(password, res.rows[0].password)
+        const validPass = await bcrypt.compare(password, users.rows[0].password)
         if (!validPass) {
             throw new Error("wrong email or password")
         }
+
+        // cookie expiry date - 7 days 
+        let date = new Date()
+        date.setDate(date.getDate() + 7);
+
+        //imports to create tokens
+        const token = createToken(users) //returns access token
+        res.cookie('ecom', createRefreshToken(users), {
+            httpOnly: true,
+            expires: date,
+            // secure: true
+        })
+
+        res.cookie('role', users.rows[0].role, {
+            httpOnly: true,
+            expires: date,
+            // secure: true
+        });
+
         return {
-            message: email,
-            accesstoken: 'wbhkwbhxkwbhxsbxhksbxhkswbhk',
-            role
+            accesstoken: token,
+            role: users.rows[0].role
         }
 
     } catch (err) {
