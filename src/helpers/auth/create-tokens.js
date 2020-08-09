@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const router = require("express").Router()
 const cookieParser = require('cookie-parser')
+const pool = require("../../db")
 
 
 const createToken = (users) => {
@@ -23,47 +24,56 @@ const createRefreshToken = (users) => {
     })
 }
 
-//refresh tokens before access token expires
-router.post("/refreshtokens", cookieParser(), async (req, res) => {
+//refresh token before access token expires
+router.post("/refreshtoken", cookieParser(), async (req, res) => {
 
-    const token = req.cookies.yeez
+    //token from header
+    const token = req.cookies.ecom
 
     if (!token) {
         return res.status(401).send({
-            success: false,
             accessToken: ""
         })
     }
+
     let payload = null
     try {
-        payload = jwt.verify(token, process.env.REFRESH_SECRET)
+        payload = jwt.verify(token, process.env.REFRESH_SECRET) //returns token
     } catch (err) {
         return res.status(401).send({
-            success: false,
             accessToken: "",
             err
         })
     }
-    // const user = await Users.findOne({
-    //     _id: payload.user_id
-    // })
 
-    // if (!user) {
-    //     return res.status(401).send({
-    //         success: false,
-    //         accessToken: ""
-    //     })
-    // }
+    //last check for user
+    const user = await pool.query("select * from users where id = $1", [payload.user_id]);
+
+    if (user.rows.length === 0) {
+        return res.status(401).send({
+            accessToken: ""
+        })
+    }
+
+
     let date = new Date()
-    date.setDate(date.getDate() + 7);
+    date.setDate(date.getDate() + 7); //7 days
+
+    //sent back cookies
     res.cookie('ecom', createRefreshToken(user), {
         httpOnly: true,
         expires: date,
-        secure: true
+        // secure: true
     })
 
+    res.cookie('role', user.rows[0].role, {
+        httpOnly: true,
+        expires: date,
+        // secure: true
+    });
+
+    //sends a new access token
     return res.status(200).send({
-        success: true,
         accessToken: createToken(user)
     })
 

@@ -6,6 +6,9 @@ const typeDefs = require("./typedefs")
 const resolvers = require("./resolvers")
 const pool = require("./db")
 const cors = require("cors")
+const {
+    router
+} = require("./helpers/auth/create-tokens")
 require('dotenv').config()
 
 
@@ -28,8 +31,11 @@ app.use(express.json())
 app.use(cors({
     credentials: true,
     // origin: 'http://localhost:3000',  
-    // preflightContinue: true,
 }));
+
+//refresh-token and logout routes
+
+app.use("/api", router)
 
 server.applyMiddleware({
     app
