@@ -4,14 +4,24 @@ const {
 } = require('apollo-server-express');
 const typeDefs = require("./src/typedefs")
 const resolvers = require("./src/resolvers")
+const pool = require("./src/db")
 require('dotenv').config()
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({
+        req,
+        res
+    }) => ({
+        req,
+        res,
+        pool
+    }),
 });
 
 const app = express();
+app.use(express.json())
 
 server.applyMiddleware({
     app

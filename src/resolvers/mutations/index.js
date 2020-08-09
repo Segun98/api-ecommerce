@@ -1,5 +1,9 @@
-const createUser = require("./users")
+const {
+    signUp,
+    logIn
+} = require("./users")
 
 module.exports = {
-    createUser
+    signUp,
+    logIn
 }
