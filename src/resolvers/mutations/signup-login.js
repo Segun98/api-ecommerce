@@ -21,7 +21,14 @@ async function signUp(_, {
     confirm_password,
     role,
     phone,
-    pending
+    pending,
+    business_name,
+    business_name_slug,
+    business_address,
+    business_area,
+    business_image,
+    business_bio,
+    customer_address
 }, {
     pool
 }) {
@@ -50,7 +57,21 @@ async function signUp(_, {
         const hashedpassword = await bcrypt.hash(password, salt)
 
         // Signing up a user 
-        const res = await pool.query("INSERT INTO users (first_name,last_name,email,password,phone,role,pending) VALUES($1, $2, $3, $4, $5,$6,$7) RETURNING * ", [first_name, last_name, email, hashedpassword, phone, role, pending]);
+        await pool.query(`INSERT INTO users (first_name,last_name,email,password,phone,role,pending,business_name,
+            business_name_slug,
+            business_address,
+            business_area,
+            business_image,
+            business_bio,
+            customer_address) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`,
+            [first_name, last_name, email, hashedpassword, phone, role, pending, business_name,
+                business_name_slug,
+                business_address,
+                business_area,
+                business_image,
+                business_bio,
+                customer_address
+            ]);
 
         return {
             message: "sign up successful"
