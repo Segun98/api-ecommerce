@@ -27,7 +27,10 @@ module.exports = gql `
         image: String,
         in_stock: String,
         creator_id: String,
-        created_at: String
+        created_at: String,
+        #nested query . userRes can be found in ./users
+        creator: usersRes
+        related: [productsRes]
     }
         
 `;
