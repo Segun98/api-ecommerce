@@ -44,9 +44,46 @@ CREATE TABLE users
         category VARCHAR(255),
         image VARCHAR(255),
         in_stock boolean DEFAULT 'true',
-        creator_id references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+        creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
         created_at TIMESTAMP
-        with time zone DEFAULT CURRENT_TIMESTAMP, 
+        with time zone DEFAULT CURRENT_TIMESTAMP
+)
+
+        -- Mutations - createOrder, cancelOrder, completeOrder
+        -- Queries - getOrders, getAllOrders(admin)
+        CREATE TABLE orders
+        (
+            id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            price int NOT NULL,
+            quantity int NOT NULL,
+            description VARCHAR(255),
+            completed boolean default false,
+            canceled boolean default false,
+            product_id uuid references products(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+            customer_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+            prod_creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+            created_at TIMESTAMP
+            with time zone DEFAULT CURRENT_TIMESTAMP
+)
+
+
+            -- Mutations - addToCart, deleteFromCart
+            -- Queries - getCartItems(id-from token)
+            CREATE TABLE cart
+            (
+                id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
+                name VARCHAR(255) NOT NULL,
+                price int NOT NULL,
+                quantity int default 1 NOT NULL,
+                description VARCHAR(255),
+                product_id uuid references products(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+                prod_creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+                --it's on products
+                customer_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+                --from token!!
+                created_at TIMESTAMP
+                with time zone DEFAULT CURRENT_TIMESTAMP
 )
 
 

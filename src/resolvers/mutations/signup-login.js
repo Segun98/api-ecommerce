@@ -121,8 +121,7 @@ async function logIn(_, {
 
         return {
             accesstoken: token,
-            role: users.rows[0].role,
-            business_name_slug: users.rows[0].business_name_slug
+            role: users.rows[0].role
         }
 
     } catch (err) {

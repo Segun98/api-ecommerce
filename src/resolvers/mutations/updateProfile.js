@@ -1,6 +1,6 @@
 const verifyJwt = require('../../helpers/auth/middlewares')
 
-module.exports = async (_, {
+async function updateProfile(_, {
     first_name,
     last_name,
     phone,
@@ -13,7 +13,7 @@ module.exports = async (_, {
 }, {
     pool,
     req
-}) => {
+}) {
     verifyJwt(req)
 
     try {
@@ -37,4 +37,36 @@ module.exports = async (_, {
     } catch (err) {
         throw new Error(err.message)
     }
+}
+
+//admin only. To set pending to true after reviewing a vendor's profile
+async function setUserStatus(_, {
+    id,
+    pending
+}, {
+    pool,
+    req
+}) {
+    verifyJwt(req)
+
+    if (req.payload.role_id !== 'admin') {
+        throw new Error("unauthorised")
+    }
+
+    try {
+        await pool.query(`update users set pending = $2
+          where id = $1`,
+            [id, pending])
+
+        return {
+            message: "user successfully updated"
+        }
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
+
+module.exports = {
+    updateProfile,
+    setUserStatus
 }

@@ -46,8 +46,7 @@ type users{
 
   type loginRes  {
     accesstoken:String,
-    role:String,
-    business_name_slug:String
+    role:String
   }
 
 #used globally
