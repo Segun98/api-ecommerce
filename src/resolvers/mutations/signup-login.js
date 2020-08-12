@@ -2,7 +2,6 @@ const {
     registerValidation
 } = require("../../helpers/auth/joivalidate")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
 const {
     createRefreshToken,
     createToken
@@ -122,7 +121,8 @@ async function logIn(_, {
 
         return {
             accesstoken: token,
-            role: users.rows[0].role
+            role: users.rows[0].role,
+            business_name_slug: users.rows[0].business_name_slug
         }
 
     } catch (err) {

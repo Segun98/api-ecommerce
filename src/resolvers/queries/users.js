@@ -24,13 +24,13 @@ async function users(_, {}, {
     }
 }
 
-async function user(_, {}, {
-    pool,
-    req
+async function user(_, {
+    business_name_slug
+}, {
+    pool
 }) {
-    verifyJwt(req)
     try {
-        const users = await pool.query(`select * from users where id = $1`, [req.payload.user_id])
+        const users = await pool.query(`select * from users where business_name_slug = $1`, [business_name_slug])
         return users.rows[0]
     } catch (err) {
         throw new Error(err.message)

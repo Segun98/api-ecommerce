@@ -36,40 +36,27 @@ CREATE TABLE users
 
     CREATE TABLE products
     (
-        id uuid DEFAULT uuid_generate_v4 () NOT NULL,
+        id uuid DEFAULT uuid_generate_v4 () NOT NULL PRIMARY KEY,
         name VARCHAR(255) NOT NULL,
-        description VARCHAR(255) NOT NULL,
+        name_slug VARCHAR(255) NOT NULL,
+        description VARCHAR(255),
         price int NOT NULL,
-        status VARCHAR(255) DEFAULT 'in stock',
-        creator_id int references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+        category VARCHAR(255),
+        image VARCHAR(255),
+        in_stock boolean DEFAULT 'true',
+        creator_id references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
         created_at TIMESTAMP
-        with time zone DEFAULT CURRENT_TIMESTAMP,
-    
+        with time zone DEFAULT CURRENT_TIMESTAMP, 
 )
 
-        CREATE TABLE author_profile
+
+        CREATE TABLE customer_profile
         (
             id uuid DEFAULT uuid_generate_v4 () NOT NULL,
-            business_name VARCHAR(255) NOT NULL,
-            description VARCHAR(255) NOT NULL,
-            location VARCHAR(255) NOT NULL,
-            area VARCHAR(255) NOT NULL,
-            creator_id int references users
-            (id) ON
-            DELETE CASCADE ON
-            UPDATE CASCADE NOT NULL,
+            name VARCHAR(255) NOT NULL,
+            address VARCHAR(255),
+            creator_id int references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
             created_at TIMESTAMP
             with time zone DEFAULT CURRENT_TIMESTAMP,
-    
-)
-
-            CREATE TABLE customer_profile
-            (
-                id uuid DEFAULT uuid_generate_v4 () NOT NULL,
-                name VARCHAR(255) NOT NULL,
-                address VARCHAR(255),
-                creator_id int references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-                created_at TIMESTAMP
-                with time zone DEFAULT CURRENT_TIMESTAMP,
     
 )
