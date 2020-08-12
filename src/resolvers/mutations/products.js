@@ -56,16 +56,44 @@ async function addProduct(_, {
 }
 
 
-async function updateProduct(_, {}, {
+async function updateProduct(_, {
+    id,
+    name,
+    description,
+    price,
+    category,
+    image,
+    in_stock,
+    creator_id
+}, {
     pool,
     req
 }) {
     verifyJwt(req)
 
-    // #checks for role, should only be vendor 
-    if (req.payload.role_id !== 'vendor') {
-        throw new Error("unauthorised")
+    if (req.payload.user_id !== creator_id) {
+        throw new Error("unauthorised, wrong user")
     }
+
+    try {
+        await pool.query(`update products set name = $2, description = $3, price = $4, category = $5, image = $6, in_stock = $7 where id = $1`, [id, name,
+            description,
+            price,
+            category,
+            image,
+            in_stock
+        ])
+
+        return {
+            message: "product successfully updated"
+        }
+
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+
+
 }
 
 module.exports = {

@@ -4,12 +4,14 @@ const {
 } = require("./signup-login")
 const updateProfile = require("./updateProfile")
 const {
-    addProduct
+    addProduct,
+    updateProduct
 } = require('./products')
 
 module.exports = {
     signUp,
     logIn,
     updateProfile,
-    addProduct
+    addProduct,
+    updateProduct
 }

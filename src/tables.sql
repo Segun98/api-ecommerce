@@ -50,13 +50,3 @@ CREATE TABLE users
 )
 
 
-        CREATE TABLE customer_profile
-        (
-            id uuid DEFAULT uuid_generate_v4 () NOT NULL,
-            name VARCHAR(255) NOT NULL,
-            address VARCHAR(255),
-            creator_id int references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-            created_at TIMESTAMP
-            with time zone DEFAULT CURRENT_TIMESTAMP,
-    
-)
