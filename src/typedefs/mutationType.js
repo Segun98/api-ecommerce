@@ -37,6 +37,31 @@ module.exports = gql `
         creator_id: String!):customRes
 
         deleteProduct(id:ID!, creator_id: String!):customRes
+
+        #CART Section 
+        addToCart(id: Int,
+    price: Int,
+    quantity: Int int,
+    delivery_fee: Int,
+    subtotal: Int,
+    description: String,
+    product_id: ID,
+    prod_creator_id: ID,
+    customer_id: ID,
+    created_at: String):customRes
     }
   
   `;
+
+function addToCart(id: Int,
+  price: Int,
+  quantity: Int int,
+  delivery_fee: Int,
+  subtotal: Int,
+  description: String,
+  product_id: ID,
+  prod_creator_id: ID,
+  customer_id: ID,
+  created_at: String) {
+
+}

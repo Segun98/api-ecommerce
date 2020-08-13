@@ -68,22 +68,34 @@ CREATE TABLE users
 )
 
 
-            -- Mutations - addToCart, deleteFromCart
-            -- Queries - getCartItems(id-from token)
+            -- Mutations - addToCart, deleteFromCart, 
+            -- Queries - getCartItems(customer_id-from token), getCart(id) - to refresh when you update quantity
             CREATE TABLE cart
             (
                 id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 price int NOT NULL,
                 quantity int default 1 NOT NULL,
-                description VARCHAR(255),
-                product_id uuid references products(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-                prod_creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-                --it's on products
-                customer_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-                --from token!!
+                delivery_fee int default 1,
+                subtotal int generated always as
+            (price * quantity + delivery_fee) stored,
+                description VARCHAR
+            (255),
+                product_id uuid references products
+            (id) ON
+            DELETE CASCADE ON
+            UPDATE CASCADE NOT NULL,
+                prod_creator_id uuid
+            references users
+            (id) ON
+            DELETE CASCADE ON
+            UPDATE CASCADE NOT NULL,
+                customer_id uuid
+            references users
+            (id) ON
+            DELETE CASCADE ON
+            UPDATE CASCADE NOT NULL,
                 created_at TIMESTAMP
-                with time zone DEFAULT CURRENT_TIMESTAMP
+            with time zone DEFAULT CURRENT_TIMESTAMP
 )
-
 
