@@ -1,15 +1,21 @@
 const {
     user,
-    users
+    users,
+    editUserPage,
+    customerProfile
 } = require("./users")
 const {
     product,
-    products
+    products,
+    editProductPage
 } = require("./products")
 
 module.exports = {
     users,
     user,
     product,
-    products
+    products,
+    editProductPage,
+    editUserPage,
+    customerProfile
 };

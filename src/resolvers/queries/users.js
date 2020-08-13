@@ -24,6 +24,8 @@ async function users(_, {}, {
     }
 }
 
+
+//public profile
 async function user(_, {
     business_name_slug
 }, {
@@ -37,7 +39,44 @@ async function user(_, {
     }
 }
 
+async function editUserPage(_, {
+    id
+}, {
+    pool,
+    req
+}) {
+    verifyJwt(req)
+
+    if (req.payload.role_id !== "vendor") {
+        throw new Error("unauthorised, you are not a vendor")
+    }
+    try {
+        const users = await pool.query(`select * from users where id = $1`, [id])
+        return users.rows[0]
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
+
+
+//customer profile. /customer/profile
+async function customerProfile(_, {}, {
+    pool,
+    req
+}) {
+    verifyJwt(req)
+    try {
+        const users = await pool.query(`select * from users where id = $1`, [req.payload.user_id])
+        return users.rows[0]
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
+
+
 module.exports = {
     users,
-    user
+    user,
+    editUserPage,
+    customerProfile
 }

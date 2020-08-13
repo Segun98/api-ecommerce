@@ -8,7 +8,8 @@ const {
 } = require("./updateProfile")
 const {
     addProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 } = require('./products')
 
 module.exports = {
@@ -17,5 +18,6 @@ module.exports = {
     updateProfile,
     addProduct,
     updateProduct,
+    deleteProduct,
     setUserStatus
 }

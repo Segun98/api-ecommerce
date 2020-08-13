@@ -96,7 +96,33 @@ async function updateProduct(_, {
 
 }
 
+
+async function deleteProduct(_, {
+    id,
+    creator_id
+}, {
+    pool,
+    req
+}) {
+    verifyJwt(req)
+    if (req.payload.user_id !== creator_id) {
+        throw new Error("unauthorised, wrong user")
+    }
+    try {
+        await pool.query(`delete from products where id = $1`, [id])
+
+        return {
+            message: "product successfully updated"
+        }
+
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+}
+
 module.exports = {
     addProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 }

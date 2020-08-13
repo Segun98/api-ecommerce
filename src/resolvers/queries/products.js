@@ -30,7 +30,21 @@ async function product(_, {
     }
 }
 
+
+async function editProductPage(_, {
+    id
+}, {
+    pool
+}) {
+    try {
+        const product = await pool.query(`select * from products where id = $1`, [id])
+        return product.rows[0]
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
 module.exports = {
     product,
-    products
+    products,
+    editProductPage
 }

@@ -16,7 +16,7 @@ module.exports = gql `
       #where customers and vendors update their profile
      updateProfile(first_name: String, last_name: String, phone:String, business_name: String, business_address: String, business_area: String, business_image: String, business_bio: String, customer_address: String): customRes
 
-#Products types def in './products.js'
+    #Products types def in './products.js'
      addProduct(
         name: String!,
         name_slug:String!,
@@ -35,6 +35,8 @@ module.exports = gql `
         image: String,
         in_stock: String,
         creator_id: String!):customRes
+
+        deleteProduct(id:ID!, creator_id: String!):customRes
     }
   
   `;
