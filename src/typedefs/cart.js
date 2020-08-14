@@ -18,6 +18,8 @@ module.exports = gql `
 
     #nested query
     cartCreator:usersRes
+
+    productCreator:usersRes
   }
 
 `;

@@ -56,14 +56,21 @@ CREATE TABLE users
             id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             price int NOT NULL,
-            quantity int NOT NULL,
+            quantity int,
+            delivery_fee int,
+            subtotal int,
             description VARCHAR(255),
-            completed boolean default false,
-            canceled boolean default false,
-            -- email
-            product_id uuid references products(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-            customer_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
-            prod_creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+            completed boolean default 'false',
+            canceled boolean default 'false',
+            customer_email VARCHAR(255),
+            vendor_email VARCHAR(255),
+            customer_phone VARCHAR(255),
+            vendor_phone VARCHAR(255),
+            customer_address VARCHAR(255),
+            business_address VARCHAR(255),
+            product_id uuid,
+            customer_id uuid,
+            prod_creator_id uuid,
             created_at TIMESTAMP
             with time zone DEFAULT CURRENT_TIMESTAMP
 )
