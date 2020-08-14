@@ -9,6 +9,10 @@ const {
     products,
     editProductPage
 } = require("./products")
+const {
+    getCartItems,
+    getCart
+} = require("./cart")
 
 module.exports = {
     users,
@@ -17,5 +21,7 @@ module.exports = {
     products,
     editProductPage,
     editUserPage,
-    customerProfile
+    customerProfile,
+    getCartItems,
+    getCart
 };

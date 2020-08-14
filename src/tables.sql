@@ -60,6 +60,7 @@ CREATE TABLE users
             description VARCHAR(255),
             completed boolean default false,
             canceled boolean default false,
+            -- email
             product_id uuid references products(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
             customer_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
             prod_creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
@@ -68,8 +69,8 @@ CREATE TABLE users
 )
 
 
-            -- Mutations - addToCart, deleteFromCart, 
-            -- Queries - getCartItems(customer_id-from token), getCart(id) - to refresh when you update quantity
+            -- Mutations - addToCart, deleteFromCart, updateCart
+            -- Queries - getCartItems(customer_id-from token)
             CREATE TABLE cart
             (
                 id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,

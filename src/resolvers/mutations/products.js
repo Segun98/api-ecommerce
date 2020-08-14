@@ -91,9 +91,6 @@ async function updateProduct(_, {
     } catch (err) {
         throw new Error(err.message)
     }
-
-
-
 }
 
 

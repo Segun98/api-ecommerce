@@ -16,7 +16,7 @@ module.exports = gql `
      customerProfile:usersRes
 
      #gets a user but for edit
-    editUserPage(id:ID!):userRes
+    editUserPage(id:ID!):usersRes
 
     #Query for products, type defs is in './product.js'
      products: [productsRes],
@@ -27,9 +27,11 @@ module.exports = gql `
     #gets a product but for edit
     editProductPage(id:ID!):productsRes
 
-    
+    #Cart, gets all cart items for customer
+    getCartItems:[cart]
 
-
+      #getCart - serves as order page
+      getCart(id:ID!):cart
    }
   
   `;

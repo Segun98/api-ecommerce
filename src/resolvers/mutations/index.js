@@ -11,6 +11,11 @@ const {
     updateProduct,
     deleteProduct
 } = require('./products')
+const {
+    addToCart,
+    deleteFromCart,
+    updateCart
+} = require('./cart')
 
 module.exports = {
     signUp,
@@ -19,5 +24,8 @@ module.exports = {
     addProduct,
     updateProduct,
     deleteProduct,
-    setUserStatus
+    setUserStatus,
+    addToCart,
+    deleteFromCart,
+    updateCart
 }

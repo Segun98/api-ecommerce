@@ -31,5 +31,15 @@ module.exports = {
         //get related products
         related
 
+    },
+
+    cart: {
+        async cartCreator(parent, {}, {
+            pool
+        }) {
+            const result = await pool.query(`select * from users where id =$1`, [parent.customer_id])
+            return result.rows[0]
+        }
     }
+
 }
