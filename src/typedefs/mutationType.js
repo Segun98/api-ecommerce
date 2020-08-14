@@ -52,7 +52,27 @@ module.exports = gql `
 
           updateCart(id:ID, quantity:String):customRes
 
+          # ORDERS
+          createOrder(
+          name: String!,
+          price: Int!,
+          quantity: Int!,
+          delivery_fee: Int,
+          subtotal: Int!,
+          description: String,
+          completed: String!,
+          canceled: String!,
+          customer_email: String,
+          vendor_email: String,
+          customer_phone: String,
+          vendor_phone: String,
+          customer_address: String,
+          business_address: String,
+          product_id: ID,
+          customer_id: ID,
+          prod_creator_id: ID):customRes
 
+          updateOrder(id:ID!, completed: String!, canceled: String!):customRes
     }
   
   `;

@@ -13,6 +13,11 @@ const {
     getCartItems,
     getCart
 } = require("./cart")
+const {
+    getCustomerOrders,
+    getVendorOrders,
+    getAllOrders
+} = require("./orders")
 
 module.exports = {
     users,
@@ -23,5 +28,8 @@ module.exports = {
     editUserPage,
     customerProfile,
     getCartItems,
-    getCart
+    getCart,
+    getCustomerOrders,
+    getVendorOrders,
+    getAllOrders
 };
