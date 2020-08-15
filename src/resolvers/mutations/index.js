@@ -16,6 +16,11 @@ const {
     deleteFromCart,
     updateCart
 } = require('./cart')
+const {
+    createOrder,
+    cancelOrder,
+    completeOrder
+} = require('./orders')
 
 module.exports = {
     signUp,
@@ -27,5 +32,8 @@ module.exports = {
     setUserStatus,
     addToCart,
     deleteFromCart,
-    updateCart
+    updateCart,
+    createOrder,
+    cancelOrder,
+    completeOrder
 }

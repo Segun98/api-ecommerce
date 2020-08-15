@@ -60,8 +60,6 @@ module.exports = gql `
           delivery_fee: Int,
           subtotal: Int!,
           description: String,
-          completed: String!,
-          canceled: String!,
           customer_email: String,
           vendor_email: String,
           customer_phone: String,
@@ -72,7 +70,8 @@ module.exports = gql `
           customer_id: ID,
           prod_creator_id: ID):customRes
 
-          updateOrder(id:ID!, completed: String!, canceled: String!):customRes
+          cancelOrder(id:ID!):customRes
+          completeOrder(id:ID!):customRes
     }
   
   `;

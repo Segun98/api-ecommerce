@@ -6,8 +6,12 @@ async function getCustomerOrders(_, {}, {
     req
 }) {
     verifyJwt(req)
+    if (req.payload.role_id !== 'customer') {
+        throw new Error("unauthorised")
+    }
     try {
-
+        const result = await pool.query(`select * from orders where customer_id = $1`, [req.payload.user_id])
+        return result.rows
     } catch (err) {
         throw new Error(err.message)
     }
@@ -18,8 +22,13 @@ async function getVendorOrders(_, {}, {
     req
 }) {
     verifyJwt(req)
-
-    try {} catch (err) {
+    if (req.payload.role_id !== 'vendor') {
+        throw new Error("unauthorised")
+    }
+    try {
+        const result = await pool.query(`select * from orders where prod_creator_id = $1`, [req.payload.user_id])
+        return result.rows
+    } catch (err) {
         throw new Error(err.message)
     }
 }
@@ -34,7 +43,8 @@ async function getAllOrders(_, {}, {
         throw new Error("unauthorised, admin only")
     }
     try {
-
+        const result = await pool.query(`select * from orders`)
+        return result.rows
     } catch (err) {
         throw new Error(err.message)
     }
