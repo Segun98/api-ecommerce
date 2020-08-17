@@ -2,6 +2,7 @@ async function creator(parent, {}, {
     pool
 }) {
     try {
+        // console.log(parent.creator_id);
         const result = await pool.query(`select * from users where id = $1`, [parent.creator_id])
         return result.rows[0]
 
