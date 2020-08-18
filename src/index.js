@@ -11,6 +11,14 @@ const {
 } = require("./helpers/auth/create-tokens")
 require('dotenv').config()
 
+const app = express();
+app.use(express.json())
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
+
+
 
 const server = new ApolloServer({
     typeDefs,
@@ -25,19 +33,17 @@ const server = new ApolloServer({
     }),
 });
 
-const app = express();
-app.use(express.json())
-app.use(cors({
-    credentials: true,
-    origin: 'http://localhost:3000',
-}));
 
 //refresh-token and logout routes
 
 app.use("/api", router)
 
 server.applyMiddleware({
-    app
+    app,
+    cors: {
+        origin: "http://localhost:3000",
+        credentials: true
+    }
 });
 
 const PORT = process.env.NODE_ENV || 4000

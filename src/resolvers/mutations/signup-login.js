@@ -114,9 +114,7 @@ async function logIn(_, {
 
         //role here is either customer, admin or vendor. it's determined at sign up
         res.cookie('role', users.rows[0].role, {
-            httpOnly: true,
             expires: date,
-            // secure: true
         });
 
         return {

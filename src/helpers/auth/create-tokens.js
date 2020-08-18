@@ -67,14 +67,13 @@ router.post("/refreshtoken", cookieParser(), async (req, res) => {
     })
 
     res.cookie('role', user.rows[0].role, {
-        httpOnly: true,
         expires: date,
-        // secure: true
     });
 
     //sends a new access token
     return res.status(200).send({
-        accessToken: createToken(user)
+        accessToken: createToken(user),
+        role: users.rows[0].role
     })
 
 })
