@@ -9,6 +9,10 @@ const cors = require("cors")
 const {
     router
 } = require("./helpers/auth/create-tokens")
+const {
+    single,
+    multiple
+} = require('./helpers/dataloader')
 require('dotenv').config()
 
 const app = express();
@@ -17,7 +21,6 @@ app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }));
-
 
 
 const server = new ApolloServer({
@@ -29,7 +32,9 @@ const server = new ApolloServer({
     }) => ({
         req,
         res,
-        pool
+        pool,
+        loaderOne: new single(),
+        loaderTwo: new multiple()
     }),
 });
 

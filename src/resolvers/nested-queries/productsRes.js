@@ -1,11 +1,8 @@
 async function creator(parent, {}, {
-    pool
+    loaderOne
 }) {
     try {
-        // console.log(parent.creator_id);
-        const result = await pool.query(`select * from users where id = $1`, [parent.creator_id])
-        return result.rows[0]
-
+        return loaderOne.load("users", "id", parent.creator_id)
     } catch (err) {
         throw new Error(err.message)
     }

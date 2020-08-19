@@ -1,9 +1,12 @@
 async function usersProducts(parent, {}, {
-    pool
+    pool,
+    loaderTwo
 }) {
     try {
-        const result = await pool.query(`select * from products where creator_id = $1`, [parent.id])
+        // console.log(await loaderTwo.load("products", "creator_id", parent.id));
+        // return loaderTwo.load("products", "creator_id", parent.id)
 
+        const result = await pool.query(`select * from products where creator_id = $1`, [parent.id])
         return result.rows
 
     } catch (err) {
