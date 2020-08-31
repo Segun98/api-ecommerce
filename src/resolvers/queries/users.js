@@ -1,4 +1,7 @@
-const verifyJwt = require("../../helpers/auth/middlewares");
+const {
+    verifyJwt,
+    verifyStore
+} = require("../../helpers/auth/middlewares");
 
 /*
  Returns all users for admin dashboard
@@ -29,11 +32,17 @@ async function users(_, {}, {
 async function user(_, {
     business_name_slug
 }, {
-    pool
+    pool,
+    req
 }) {
+    verifyStore(req)
+    let id = req.payload && req.payload.user_id
     try {
         const users = await pool.query(`select * from users where business_name_slug = $1`, [business_name_slug])
-        return users.rows[0]
+        return {
+            ...users.rows[0],
+            jwt_user_id: id
+        }
     } catch (err) {
         throw new Error(err.message)
     }

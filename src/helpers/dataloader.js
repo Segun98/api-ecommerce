@@ -38,8 +38,10 @@ module.exports.single = class single {
 module.exports.multiple = class multiple {
     loaders = {}
     load(table, column, id) {
+        let arr = []
+        arr.push(id)
         const loader = this.findLoader(table, column);
-        return loader.load(id)
+        return loader.loadMany(arr)
     }
     findLoader(table, column) {
         if (!this.loaders[table]) {
@@ -56,17 +58,13 @@ module.exports.multiple = class multiple {
                 // const lookup = res.rows.reduce((acc, row) => {
                 //     acc[row.creator_id] = row;
                 //     return acc;
-                // }, {})
+                // }, [])
                 // console.log(lookup);
-                // console.log(keys.map(id => lookup[id] || null));
-                const lookup = {}
+                const lookup = []
                 res.rows.map(u => {
                     lookup[u.creator_id] = u
                 })
 
-                // console.log(lookup);
-
-                // console.log(keys.map(id => lookup[id] || null));
                 return keys.map(id => lookup[id] || null)
 
 

@@ -40,6 +40,7 @@ type users{
     business_image: String,
     business_bio:String,
     customer_address: String,
+    jwt_user_id: String
     #nested resolver
     usersProducts:[productsRes]
   }
