@@ -1,9 +1,7 @@
 async function usersProducts(parent, {}, {
-    pool,
-    loaderTwo
+    pool
 }) {
     try {
-        // return loaderTwo.load("products", "creator_id", parent.id)
 
         const result = await pool.query(`select * from products where creator_id = $1 order by created_at desc`, [parent.id])
         return result.rows

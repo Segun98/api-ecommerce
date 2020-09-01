@@ -11,12 +11,10 @@ async function getCartItems(_, {}, {
     verifyJwt(req)
     try {
 
-        const cart = await pool.query(`select * from cart where customer_id = $1`, [req.payload.user_id])
-
+        const cart = await pool.query(`select * from cart where customer_id = $1 order by created_at desc`, [req.payload.user_id])
         return cart.rows
 
     } catch (err) {
-        console.log(err.message);
         throw new Error(err.message)
     }
 }

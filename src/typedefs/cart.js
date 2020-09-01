@@ -5,12 +5,7 @@ const {
 module.exports = gql `
     type cart{
     id: ID,
-    name: String,
-    price: Int,
     quantity: Int,
-    delivery_fee: Int,
-    subtotal: Int,
-    description: String,
     product_id: ID,
     prod_creator_id: ID,
     customer_id: ID,
@@ -18,7 +13,7 @@ module.exports = gql `
 
     #nested query
     cartCreator:usersRes
-
+    product:productsRes
     productCreator:usersRes
   }
 

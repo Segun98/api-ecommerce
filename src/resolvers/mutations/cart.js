@@ -1,11 +1,8 @@
-const verifyJwt = require("../../helpers/auth/middlewares");
+const {
+    verifyJwt
+} = require("../../helpers/auth/middlewares");
 
 async function addToCart(_, {
-    name,
-    price,
-    quantity,
-    delivery_fee,
-    description,
     product_id,
     prod_creator_id
 }, {
@@ -13,23 +10,27 @@ async function addToCart(_, {
     req
 }) {
     verifyJwt(req)
+    if (req.payload.role_id !== "customer") {
+        throw new Error("you need to login as a customer")
+    }
+
+    //checks if item exists. I cant write "where product_id..." cos table contains everyone's cart
+    const product = await pool.query(`select product_id from cart where customer_id = $1`, [req.payload.user_id])
+    product.rows.forEach(p => {
+        if (p.product_id === product_id) {
+            throw new Error("Item is already in Cart")
+        }
+    })
 
     try {
 
-        await pool.query(`insert into cart (price,
-            quantity,
-            delivery_fee,
-            description,
+        await pool.query(`insert into cart (
             product_id,
             prod_creator_id,
-            customer_id, name) values($1,$2,$3,$4,$5,$6,$7, $8)`, [price,
-            quantity,
-            delivery_fee,
-            description,
+            customer_id) values($1,$2,$3)`, [
             product_id,
             prod_creator_id,
             req.payload.user_id,
-            name
         ])
 
         return {

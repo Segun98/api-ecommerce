@@ -40,11 +40,6 @@ module.exports = gql `
 
         #CART Section 
         addToCart(
-          name:String!,
-          price: Int!,
-          quantity: Int,
-          delivery_fee: Int,
-          description: String,
           product_id: ID!,
           prod_creator_id: ID!):customRes
 

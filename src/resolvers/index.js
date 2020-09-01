@@ -35,16 +35,19 @@ module.exports = {
 
     cart: {
         async cartCreator(parent, {}, {
-            pool
+            loaderOne
         }) {
-            const result = await pool.query(`select * from users where id =$1`, [parent.customer_id])
-            return result.rows[0]
+            return loaderOne.load("users", "id", parent.customer_id)
         },
         async productCreator(parent, {}, {
-            pool
+            loaderOne
         }) {
-            const result = await pool.query(`select * from users where id =$1`, [parent.prod_creator_id])
-            return result.rows[0]
+            return loaderOne.load("users", "id", parent.prod_creator_id)
+        },
+        async product(parent, {}, {
+            loaderOne
+        }) {
+            return loaderOne.load("products", "id", parent.product_id)
         }
     }
 
