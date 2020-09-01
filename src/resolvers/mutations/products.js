@@ -9,7 +9,7 @@ async function addProduct(_, {
     price,
     category,
     image,
-    in_stock
+    available_qty
 }, {
     pool,
     req
@@ -24,7 +24,7 @@ async function addProduct(_, {
     // prevent duplicate slugs
     const slugCheck = await pool.query(`select * from products where name_slug = $1`, [name_slug])
 
-    let random = Math.floor(Math.random() * 74353785)
+    let random = Math.floor(Math.random() * 4935)
 
     try {
         await pool.query(`insert into products     (name,
@@ -33,7 +33,7 @@ async function addProduct(_, {
                 price,
                 category,
                 image,
-                in_stock,
+                available_qty,
                 creator_id) 
                 values($1,$2,$3,$4,$5,$6,$7,$8)`,
             [name,
@@ -42,7 +42,7 @@ async function addProduct(_, {
                 price,
                 category,
                 image,
-                in_stock,
+                available_qty,
                 req.payload.user_id
             ])
 

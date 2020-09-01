@@ -44,6 +44,7 @@ CREATE TABLE users
         category VARCHAR(255),
         image VARCHAR(255),
         in_stock boolean DEFAULT 'true',
+        available_qty int NOT NULL DEFAULT 1,
         creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
         created_at TIMESTAMP
         with time zone DEFAULT CURRENT_TIMESTAMP

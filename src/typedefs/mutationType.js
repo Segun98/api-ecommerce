@@ -24,7 +24,8 @@ module.exports = gql `
         price:Int!,
         category: String,
         image: String,
-        in_stock: String):customRes
+       available_qty:Int!
+        ):customRes
               
         updateProduct(
         id:ID!
@@ -33,6 +34,7 @@ module.exports = gql `
         price:Int!,
         category: String,
         image: String,
+        available_qty:Int,
         in_stock: String,
         creator_id: String!):customRes
 

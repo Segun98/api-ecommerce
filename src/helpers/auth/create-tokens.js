@@ -10,7 +10,7 @@ const createToken = (users) => {
         email_id: users.rows[0].email,
         role_id: users.rows[0].role
     }, process.env.TOKEN_SECRET, {
-        expiresIn: "15m"
+        expiresIn: "59m"
     })
 }
 
