@@ -35,7 +35,7 @@ async function signUp(_, {
         const validation = registerValidation({
             first_name,
             last_name,
-            email,
+            email: email.toLowerCase(),
             password,
             confirm_password
         })
