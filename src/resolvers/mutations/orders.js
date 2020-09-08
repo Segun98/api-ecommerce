@@ -1,4 +1,6 @@
-const verifyJwt = require("../../helpers/auth/middlewares")
+const {
+    verifyJwt
+} = require("../../helpers/auth/middlewares")
 
 async function createOrder(_, {
     name,
@@ -14,7 +16,6 @@ async function createOrder(_, {
     customer_address,
     business_address,
     product_id,
-    customer_id,
     prod_creator_id
 }, {
     pool,
@@ -22,9 +23,6 @@ async function createOrder(_, {
 }) {
     verifyJwt(req)
 
-    if (req.payload.user_id !== customer_id) {
-        throw new Error("unauthorised, wrong customer")
-    }
     try {
         await pool.query(`insert into orders ( name,
             price,
@@ -39,8 +37,9 @@ async function createOrder(_, {
             customer_address,
             business_address,
             product_id,
-            customer_id,
-            prod_creator_id) values($1,$2,$3,$4,$5,$6,$7, $8,$9,$10,$11,$12,$13,$14,$15)`,
+            prod_creator_id,
+            customer_id
+            ) values($1,$2,$3,$4,$5,$6,$7, $8,$9,$10,$11,$12,$13,$14,$15)`,
             [name,
                 price,
                 quantity,
@@ -54,8 +53,8 @@ async function createOrder(_, {
                 customer_address,
                 business_address,
                 product_id,
-                customer_id,
-                prod_creator_id
+                prod_creator_id,
+                req.payload.user_id
             ])
 
         return {
@@ -105,6 +104,7 @@ async function completeOrder(_, {
     } catch (err) {
         throw new Error(err.message)
     }
+    
 }
 
 

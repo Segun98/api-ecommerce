@@ -46,7 +46,8 @@ async function addToCart(_, {
 async function deleteFromCart(_, {
     id
 }, {
-    pool
+    pool,
+    req
 }) {
     verifyJwt(req)
 

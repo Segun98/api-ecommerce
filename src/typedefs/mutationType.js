@@ -64,7 +64,6 @@ module.exports = gql `
           customer_address: String,
           business_address: String,
           product_id: ID,
-          customer_id: ID,
           prod_creator_id: ID):customRes
 
           cancelOrder(id:ID!):customRes
