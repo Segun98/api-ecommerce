@@ -12,6 +12,9 @@ module.exports = gql `
   #public vendor/store page/profile
      user(business_name_slug:String!):usersRes,
 
+#gets a user by jwt idd
+     getUser:usersRes
+
      #gets a customer's profile
      customerProfile:usersRes
 

@@ -17,7 +17,6 @@ module.exports.single = class single {
                     sol.push(`$${i+1}`)
                 }
                 let fin = sol.join(",")
-
                 const res = await pool.query(`select * from ${table} where ${column} in (${fin})`, keys)
 
                 //lookup object that find corressponding id
@@ -34,7 +33,7 @@ module.exports.single = class single {
     }
 }
 
-//this class is a helper to reuse dataloader accross my nested queries.
+//this should return an array the "single" class above returns an object from a nested resolver. - doesn't work btw
 module.exports.multiple = class multiple {
     loaders = {}
     load(table, column, id) {

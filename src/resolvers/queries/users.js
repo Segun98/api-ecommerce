@@ -48,6 +48,21 @@ async function user(_, {
     }
 }
 
+//gets user by id
+async function getUser(_, {}, {
+    pool,
+    req
+}) {
+    verifyJwt(req)
+    try {
+        const user = await pool.query(`select * from users where id = $1`, [req.payload.user_id])
+        return user.rows[0]
+
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
+
 async function editUserPage(_, {
     id
 }, {
@@ -86,6 +101,7 @@ async function customerProfile(_, {}, {
 module.exports = {
     users,
     user,
+    getUser,
     editUserPage,
     customerProfile
 }

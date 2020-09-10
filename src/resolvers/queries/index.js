@@ -1,6 +1,7 @@
 const {
     user,
     users,
+    getUser,
     editUserPage,
     customerProfile
 } = require("./users")
@@ -22,6 +23,7 @@ const {
 module.exports = {
     users,
     user,
+    getUser,
     product,
     products,
     editProductPage,
