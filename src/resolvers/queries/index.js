@@ -8,6 +8,7 @@ const {
 const {
     product,
     products,
+    byCategory,
     editProductPage
 } = require("./products")
 const {
@@ -26,6 +27,7 @@ module.exports = {
     getUser,
     product,
     products,
+    byCategory,
     editProductPage,
     editUserPage,
     customerProfile,

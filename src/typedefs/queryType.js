@@ -22,10 +22,13 @@ module.exports = gql `
     editUserPage(id:ID!):usersRes
 
     #Query for products, type defs is in './product.js'
-     products: [productsRes],
+     products(limit:Int): [productsRes],
 
     #get a product
     product(name_slug:String!):productsRes,
+
+    #by category
+    byCategory(category:String! limit:Int): [productsRes]
 
     #gets a product but for edit
     editProductPage(id:ID!):productsRes

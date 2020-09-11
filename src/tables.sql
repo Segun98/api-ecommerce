@@ -1,7 +1,7 @@
 -- Where i write out my queries to test 
 
 CREATE TYPE user_role AS enum
-('admin', 'customer', 'vendor');
+('admin','super_admin', 'customer', 'vendor');
 
 CREATE TYPE boolean AS enum
 ('true', 'false');
@@ -83,28 +83,26 @@ CREATE TABLE users
             (
                 id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
-                price int NOT NULL,
                 quantity int default 1 NOT NULL,
-                delivery_fee int default 1,
-                subtotal int generated always as
-            (price * quantity + delivery_fee) stored,
-                description VARCHAR
-            (255),
+                --     subtotal int generated always as
+                -- (price * quantity + delivery_fee) stored,
+                --     description VARCHAR
+                -- (255),
                 product_id uuid references products
             (id) ON
             DELETE CASCADE ON
             UPDATE CASCADE NOT NULL,
                 prod_creator_id uuid
-            references users
+                    references users
             (id) ON
             DELETE CASCADE ON
             UPDATE CASCADE NOT NULL,
                 customer_id uuid
-            references users
+                    references users
             (id) ON
             DELETE CASCADE ON
             UPDATE CASCADE NOT NULL,
                 created_at TIMESTAMP
-            with time zone DEFAULT CURRENT_TIMESTAMP
+                with time zone DEFAULT CURRENT_TIMESTAMP
 )
 
