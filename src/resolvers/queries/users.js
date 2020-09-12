@@ -16,7 +16,7 @@ async function users(_, {}, {
     verifyJwt(req)
 
     if (req.payload.role_id !== "admin") {
-        throw new Error("unauthorised, you are not an admin")
+        throw new Error("Unauthorised, you are not an admin")
     }
     try {
         const users = await pool.query(`select * from users order by created_at desc`)
@@ -72,7 +72,7 @@ async function editUserPage(_, {
     verifyJwt(req)
 
     if (req.payload.role_id !== "vendor") {
-        throw new Error("unauthorised, you are not a vendor")
+        throw new Error("Unauthorised, you are not a vendor")
     }
     try {
         const users = await pool.query(`select * from users where id = $1`, [id])

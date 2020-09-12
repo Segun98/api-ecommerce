@@ -18,7 +18,7 @@ async function addProduct(_, {
 
     // #checks for role, should only be vendor 
     if (req.payload.role_id !== 'vendor') {
-        throw new Error("unauthorised")
+        throw new Error("Unauthorised")
     }
 
     // prevent duplicate slugs
@@ -27,7 +27,9 @@ async function addProduct(_, {
     let random = Math.floor(Math.random() * 4935)
 
     try {
-        await pool.query(`insert into products     (name,
+        await pool.query(`
+                insert into products     
+                (name,
                 name_slug,
                 description,
                 price,
@@ -47,7 +49,7 @@ async function addProduct(_, {
             ])
 
         return {
-            message: "product successfully added"
+            message: "Product successfully added"
         }
 
     } catch (err) {
@@ -74,7 +76,7 @@ async function updateProduct(_, {
     verifyJwt(req)
 
     if (req.payload.user_id !== creator_id) {
-        throw new Error("unauthorised, wrong user")
+        throw new Error("Unauthorised, wrong user")
     }
 
     try {
@@ -87,7 +89,7 @@ async function updateProduct(_, {
         ])
 
         return {
-            message: "product successfully updated"
+            message: "Product successfully updated"
         }
 
     } catch (err) {
@@ -105,13 +107,13 @@ async function deleteProduct(_, {
 }) {
     verifyJwt(req)
     if (req.payload.user_id !== creator_id) {
-        throw new Error("unauthorised, wrong user")
+        throw new Error("Unauthorised, wrong user")
     }
     try {
         await pool.query(`delete from products where id = $1`, [id])
 
         return {
-            message: "product successfully updated"
+            message: "Product successfully updated"
         }
 
     } catch (err) {

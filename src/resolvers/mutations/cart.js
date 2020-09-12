@@ -11,7 +11,7 @@ async function addToCart(_, {
 }) {
     verifyJwt(req)
     if (req.payload.role_id !== "customer") {
-        throw new Error("you need to login as a customer")
+        throw new Error("You need to login as a customer")
     }
 
     //checks if item exists. I cant write "where product_id..." cos table contains everyone's cart
@@ -34,7 +34,7 @@ async function addToCart(_, {
         ])
 
         return {
-            message: "item has been added to cart"
+            message: "Item has been added to cart"
         }
 
     } catch (err) {
@@ -56,7 +56,7 @@ async function deleteFromCart(_, {
         await pool.query(`delete from cart where id = $1`, [id])
 
         return {
-            message: "item has been removed from cart"
+            message: "Item has been removed from cart"
         }
 
     } catch (err) {
@@ -78,7 +78,7 @@ async function updateCart(_, {
         await pool.query(`update cart set quantity = $2 where id = $1`, [id, quantity])
 
         return {
-            message: "quantity successfully updated"
+            message: "Quantity successfully updated"
         }
 
     } catch (err) {

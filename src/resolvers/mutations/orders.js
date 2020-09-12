@@ -58,7 +58,7 @@ async function createOrder(_, {
             ])
 
         return {
-            message: "your order has been made, manage your orders on the order page"
+            message: "Your order has been made, manage your orders on the order page"
         }
     } catch (err) {
         throw new Error(err.message)
@@ -104,7 +104,7 @@ async function completeOrder(_, {
     } catch (err) {
         throw new Error(err.message)
     }
-    
+
 }
 
 

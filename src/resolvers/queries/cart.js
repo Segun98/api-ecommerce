@@ -9,6 +9,9 @@ async function getCartItems(_, {}, {
     req
 }) {
     verifyJwt(req)
+    if (req.payload.role_id !== "customer") {
+        throw new Error("Unauthorised")
+    }
     try {
 
         const cart = await pool.query(`select * from cart where customer_id = $1 order by created_at desc`, [req.payload.user_id])

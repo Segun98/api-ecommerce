@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const verifyJwt = (req) => {
     const authorization = req.headers["authorization"]
     if (!authorization) {
-        throw new Error("no authorization, you have to log in")
+        throw new Error("You have to Log In")
     }
     try {
         const token = authorization.split(" ")[1]

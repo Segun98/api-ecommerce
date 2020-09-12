@@ -32,7 +32,7 @@ async function updateProfile(_, {
             ])
 
         return {
-            message: "user successfully updated"
+            message: "User successfully updated"
         }
     } catch (err) {
         throw new Error(err.message)
@@ -50,7 +50,7 @@ async function setUserStatus(_, {
     verifyJwt(req)
 
     if (req.payload.role_id !== 'admin') {
-        throw new Error("unauthorised")
+        throw new Error("Unauthorised")
     }
 
     try {
@@ -59,7 +59,7 @@ async function setUserStatus(_, {
             [id, pending])
 
         return {
-            message: "user successfully updated"
+            message: "User successfully updated"
         }
     } catch (err) {
         throw new Error(err.message)

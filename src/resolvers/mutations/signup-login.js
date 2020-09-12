@@ -47,7 +47,7 @@ async function signUp(_, {
         const emailExists = await pool.query(`select email from users where email = $1`, [email])
 
         if (emailExists.rows.length > 0) {
-            throw new Error("email already exists")
+            throw new Error("Email already exists")
         }
 
         // hash password 
@@ -73,7 +73,7 @@ async function signUp(_, {
             ]);
 
         return {
-            message: "sign up successful"
+            message: "Sign up successful!"
         }
 
     } catch (err) {
@@ -93,11 +93,11 @@ async function logIn(_, {
         const users = await pool.query("select * from users where email = $1", [email]);
 
         if (users.rows.length === 0) {
-            throw new Error("wrong email or password")
+            throw new Error("Wrong email or password")
         }
         const validPass = await bcrypt.compare(password, users.rows[0].password)
         if (!validPass) {
-            throw new Error("wrong email or password")
+            throw new Error("Wrong email or password")
         }
 
         // cookie expiry date - 7 days 
