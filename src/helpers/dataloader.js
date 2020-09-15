@@ -51,20 +51,23 @@ module.exports.multiple = class multiple {
                     sol.push(`$${i+1}`)
                 }
                 let fin = sol.join(",")
-
-                const res = await pool.query(`select * from ${table} where ${column} in (${fin})`, keys)
+                const res = await pool.query(`select * from ${table} where ${column} in (${fin}) order by created_at desc`, keys)
                 //lookup object that find corressponding id
-                // const lookup = res.rows.reduce((acc, row) => {
-                //     acc[row.creator_id] = row;
-                //     return acc;
-                // }, [])
-                // console.log(lookup);
-                const lookup = []
-                res.rows.map(u => {
-                    lookup[u.creator_id] = u
-                })
-
-                return keys.map(id => lookup[id] || null)
+                // const lookup = []
+                // res.rows.map(u => {
+                //     lookup[u.creator_id] = u
+                // })
+                // console.log(res.rows);
+                // console.log(keys);
+                const lookup = res.rows.reduce((acc, row) => {
+                    acc[row.id] = row;
+                    return acc;
+                }, {})
+                let test = keys.reduce((acc, curr) => [...acc, res.rows.forEach(l => {
+                    return l.creator_id === curr
+                })], [])
+                console.log(test);
+                return keys.map((id) => res.rows || null)
 
 
             })

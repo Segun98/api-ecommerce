@@ -13,11 +13,11 @@ async function users(_, {}, {
     pool,
     req
 }) {
-    verifyJwt(req)
+    // verifyJwt(req)
 
-    if (req.payload.role_id !== "admin") {
-        throw new Error("Unauthorised, you are not an admin")
-    }
+    // if (req.payload.role_id !== "admin") {
+    //     throw new Error("Unauthorised, you are not an admin")
+    // }
     try {
         const users = await pool.query(`select * from users order by created_at desc`)
         return users.rows
