@@ -54,7 +54,7 @@ module.exports.multiple = class multiple {
                     sol.push(`$${i+1}`)
                 }
                 let fin = sol.join(",")
-                const res = await pool.query(`select * from ${table} where ${column} in (${fin})`, keys)
+                const res = await pool.query(`select * from ${table} where ${column} in (${fin}) order by created_at desc`, keys)
 
                 const lookup = res.rows.reduce((acc, row) => {
                     if (!(row.creator_id in acc)) {

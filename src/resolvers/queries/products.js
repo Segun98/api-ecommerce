@@ -10,7 +10,11 @@ async function products(_, {
     pool
 }) {
     try {
+        const start = Date.now()
         const users = await pool.query(`select * from products order by created_at desc limit ${limit}`)
+        if (users) {
+            console.log(Date.now() - start);
+        }
         return users.rows
 
     } catch (err) {

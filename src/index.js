@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const {
     ApolloServer
 } = require('apollo-server-express');
@@ -6,22 +7,22 @@ const typeDefs = require("./typedefs")
 const resolvers = require("./resolvers")
 const pool = require("./db")
 const cors = require("cors")
-const {
-    router
-} = require("./helpers/auth/create-tokens")
+const auth = require("./helpers/auth/auth")
 const {
     single,
     multiple
 } = require('./helpers/dataloader')
 require('dotenv').config()
 
-const app = express();
 app.use(express.json())
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
 }));
 
+//refresh-token and logout routes
+
+app.use("/api", auth)
 
 const server = new ApolloServer({
     typeDefs,
@@ -39,9 +40,6 @@ const server = new ApolloServer({
 });
 
 
-//refresh-token and logout routes
-
-app.use("/api", router)
 
 server.applyMiddleware({
     app,
