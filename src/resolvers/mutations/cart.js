@@ -4,7 +4,8 @@ const {
 
 async function addToCart(_, {
     product_id,
-    prod_creator_id
+    prod_creator_id,
+    quantity
 }, {
     pool,
     req
@@ -27,9 +28,11 @@ async function addToCart(_, {
         await pool.query(`insert into cart (
             product_id,
             prod_creator_id,
-            customer_id) values($1,$2,$3)`, [
+            quantity,
+            customer_id) values($1,$2,$3,$4)`, [
             product_id,
             prod_creator_id,
+            quantity,
             req.payload.user_id,
         ])
 

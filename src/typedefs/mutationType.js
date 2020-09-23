@@ -43,7 +43,7 @@ module.exports = gql `
         #CART Section 
         addToCart(
           product_id: ID!,
-          prod_creator_id: ID!):customRes
+          prod_creator_id: ID!, quantity:Int):customRes
 
           deleteFromCart(id:ID):customRes
 

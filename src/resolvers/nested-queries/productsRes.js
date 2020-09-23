@@ -14,7 +14,7 @@ async function related(parent, {}, {
     pool
 }) {
     try {
-        const result = await pool.query(`select * from products where category = $1`, [parent.category])
+        const result = await pool.query(`select * from products where category = $1 order by created_at desc limit 5`, [parent.category])
         //remember to filter out duplicate store ownwesr
         return result.rows
 

@@ -64,8 +64,8 @@ router.post("/logout", (req, res, next) => {
     try {
         res.clearCookie("ecom");
         res.clearCookie("role");
-        next()
         res.send("Logged Out")
+        next()
     } catch (err) {
         console.log(err);
     }

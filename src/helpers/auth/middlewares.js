@@ -20,7 +20,7 @@ const verifyStore = (req) => {
     const authorization = req.headers["authorization"]
     try {
         const token = authorization.split(" ")[1]
-        const payload = jwt.verify(token, process.env.TOKEN_SECRET)
+        const payload = jwt.verify(token, process.env.REFRESH_SECRET)
         req.payload = payload
     } catch (err) {
         req.payload = err.message
