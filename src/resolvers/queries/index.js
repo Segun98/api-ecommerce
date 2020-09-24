@@ -8,7 +8,9 @@ const {
 const {
     product,
     products,
+    search,
     byCategory,
+    partyCategory,
     editProductPage
 } = require("./products")
 const {
@@ -27,7 +29,9 @@ module.exports = {
     getUser,
     product,
     products,
+    search,
     byCategory,
+    partyCategory,
     editProductPage,
     editUserPage,
     customerProfile,

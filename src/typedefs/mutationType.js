@@ -47,7 +47,7 @@ module.exports = gql `
 
           deleteFromCart(id:ID):customRes
 
-          updateCart(id:ID, quantity:String):customRes
+          updateCart(id:ID, quantity:Int):customRes
 
           # ORDERS
           createOrder(

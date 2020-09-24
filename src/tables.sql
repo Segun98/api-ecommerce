@@ -42,6 +42,7 @@ CREATE TABLE users
         description Text,
         price int NOT NULL,
         category VARCHAR(255),
+        party_category VARCHAR(255),
         image VARCHAR(255),
         in_stock boolean DEFAULT 'true',
         available_qty int NOT NULL DEFAULT 1,

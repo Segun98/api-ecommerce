@@ -49,6 +49,19 @@ async function byCategory(_, {
     }
 }
 
+async function partyCategory(_, {
+    category,
+    limit
+}, {
+    pool
+}) {
+    try {
+        const products = await pool.query(`select * from products where party_category = $1 order by created_at desc limit ${limit}`, [category])
+        return products.rows
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
 
 async function editProductPage(_, {
     id
@@ -62,9 +75,25 @@ async function editProductPage(_, {
         throw new Error(err.message)
     }
 }
+
+async function search(_, {
+    query,
+    limit
+}, {
+    pool
+}) {
+    try {
+        const products = await pool.query(`select * from products where name ilike '%${query}%' order by created_at desc limit ${limit}`)
+        return products.rows
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
 module.exports = {
     product,
     products,
+    search,
     byCategory,
+    partyCategory,
     editProductPage
 }

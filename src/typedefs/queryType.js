@@ -12,7 +12,7 @@ module.exports = gql `
   #public vendor/store page/profile
      user(business_name_slug:String!):usersRes,
 
-#gets a user by jwt idd
+#gets a user by jwt id
      getUser:usersRes
 
      #gets a customer's profile
@@ -27,8 +27,12 @@ module.exports = gql `
     #get a product
     product(name_slug:String!):productsRes,
 
+    #search products
+    search(query:String! limit:Int):[productsRes]
+
     #by category
     byCategory(category:String! limit:Int): [productsRes]
+    partyCategory(party_category:String! limit:Int): [productsRes]
 
     #gets a product but for edit
     editProductPage(id:ID!):productsRes
