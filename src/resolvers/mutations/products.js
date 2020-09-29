@@ -8,6 +8,7 @@ async function addProduct(_, {
     description,
     price,
     category,
+    party_category,
     image,
     available_qty
 }, {
@@ -34,15 +35,17 @@ async function addProduct(_, {
                 description,
                 price,
                 category,
+                party_category,
                 image,
                 available_qty,
                 creator_id) 
-                values($1,$2,$3,$4,$5,$6,$7,$8)`,
+                values($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
             [name,
                 `${slugCheck.rows.length > 0? name_slug+random : name_slug}`,
                 description,
                 price,
                 category,
+                party_category,
                 image,
                 available_qty,
                 req.payload.user_id
@@ -66,6 +69,7 @@ async function updateProduct(_, {
     description,
     price,
     category,
+    party_category,
     image,
     in_stock,
     creator_id
@@ -80,10 +84,11 @@ async function updateProduct(_, {
     }
 
     try {
-        await pool.query(`update products set name = $2, description = $3, price = $4, category = $5, image = $6, in_stock = $7 where id = $1`, [id, name,
+        await pool.query(`update products set name = $2, description = $3, price = $4, category = $5,party_category=$6, image = $7, in_stock = $8 where id = $1`, [id, name,
             description,
             price,
             category,
+            party_category,
             image,
             in_stock
         ])

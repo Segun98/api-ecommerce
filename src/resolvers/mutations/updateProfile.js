@@ -1,4 +1,6 @@
-const verifyJwt = require('../../helpers/auth/middlewares')
+const {
+    verifyJwt
+} = require('../../helpers/auth/middlewares')
 
 async function updateProfile(_, {
     first_name,
