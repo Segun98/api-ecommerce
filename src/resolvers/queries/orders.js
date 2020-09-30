@@ -19,7 +19,9 @@ async function getCustomerOrders(_, {}, {
     }
 }
 
-async function getVendorOrders(_, {}, {
+async function getVendorOrders(_, {
+    limit
+}, {
     pool,
     req
 }) {
@@ -28,8 +30,8 @@ async function getVendorOrders(_, {}, {
         throw new Error("Unauthorised")
     }
     try {
-        const result = await pool.query(`select * from orders where prod_creator_id = $1`, [req.payload.user_id])
-        return result.rows
+        const orders = await pool.query(`select * from orders where prod_creator_id = $1 order by created_at desc limit ${limit}`, [req.payload.user_id])
+        return orders.rows
     } catch (err) {
         throw new Error(err.message)
     }
