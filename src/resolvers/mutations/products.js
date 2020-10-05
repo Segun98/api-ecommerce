@@ -72,6 +72,7 @@ async function updateProduct(_, {
     party_category,
     image,
     in_stock,
+    available_qty,
     creator_id
 }, {
     pool,
@@ -84,13 +85,14 @@ async function updateProduct(_, {
     }
 
     try {
-        await pool.query(`update products set name = $2, description = $3, price = $4, category = $5,party_category=$6, image = $7, in_stock = $8 where id = $1`, [id, name,
+        await pool.query(`update products set name = $2, description = $3, price = $4, category = $5,party_category=$6, image = $7, in_stock = $8, available_qty=$9 where id = $1`, [id, name,
             description,
             price,
             category,
             party_category,
             image,
-            in_stock
+            in_stock,
+            available_qty
         ])
 
         return {
@@ -118,7 +120,7 @@ async function deleteProduct(_, {
         await pool.query(`delete from products where id = $1`, [id])
 
         return {
-            message: "Product successfully updated"
+            message: "Product successfully deleted"
         }
 
     } catch (err) {
