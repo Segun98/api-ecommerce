@@ -3,7 +3,8 @@ const {
     users,
     getUser,
     editUserPage,
-    customerProfile
+    customerProfile,
+    getStores
 } = require("./users")
 const {
     product,
@@ -35,6 +36,7 @@ module.exports = {
     editProductPage,
     editUserPage,
     customerProfile,
+    getStores,
     getCartItems,
     getCart,
     getCustomerOrders,

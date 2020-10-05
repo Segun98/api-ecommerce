@@ -83,7 +83,7 @@ async function editUserPage(_, {
 }
 
 
-//customer profile. /customer/profile
+//customer profile. 
 async function customerProfile(_, {}, {
     pool,
     req
@@ -98,10 +98,25 @@ async function customerProfile(_, {}, {
 }
 
 
+//gets all stores. 
+async function getStores(_, {}, {
+    pool
+}) {
+    try {
+        const stores = await pool.query(`select * from users where role = $1`, ["vendor"])
+        return stores.rows
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
+
+
+
 module.exports = {
     users,
     user,
     getUser,
     editUserPage,
-    customerProfile
+    customerProfile,
+    getStores
 }
