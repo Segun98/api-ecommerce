@@ -31,11 +31,11 @@ module.exports = gql `
     product(name_slug:String!):productsRes,
 
     #search products
-    search(query:String! limit:Int):[productsRes]
+    search(query:String! limit:Int offset:Int):[productsRes]
 
     #by category
-    byCategory(category:String! limit:Int): [productsRes]
-    partyCategory(party_category:String limit:Int): [productsRes]
+    byCategory(category:String! limit:Int offset:Int): [productsRes]
+    partyCategory(party_category:String limit:Int offset:Int): [productsRes]
 
     #gets a product but for edit
     editProductPage(id:ID!):productsRes

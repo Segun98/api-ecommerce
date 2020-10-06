@@ -37,18 +37,18 @@ async function product(_, {
 
 async function byCategory(_, {
     category,
-    limit
+    limit,
+    offset
 }, {
     pool
 }) {
     try {
-        const products = await pool.query(`select * from products where category = $1 order by created_at desc limit ${limit}`, [category])
+        const products = await pool.query(`select * from products where category = $1 order by created_at desc limit ${limit} offset ${offset}`, [category])
 
         // if (theres a filter) {
         //     const test = await pool.query(`select * from products where category = $1 order by price asc limit ${limit}`, [category])
         //     console.log(test.rows);
         // }
-
         return products.rows
     } catch (err) {
         throw new Error(err.message)
@@ -57,12 +57,13 @@ async function byCategory(_, {
 
 async function partyCategory(_, {
     party_category,
-    limit
+    limit,
+    offset
 }, {
     pool
 }) {
     try {
-        const products = await pool.query(`select * from products where party_category = $1 order by created_at desc limit ${limit}`, [party_category])
+        const products = await pool.query(`select * from products where party_category = $1 order by created_at desc limit ${limit} offset ${offset}`, [party_category])
         return products.rows
     } catch (err) {
         throw new Error(err.message)
@@ -84,12 +85,13 @@ async function editProductPage(_, {
 
 async function search(_, {
     query,
-    limit
+    limit,
+    offset
 }, {
     pool
 }) {
     try {
-        const products = await pool.query(`select * from products where name ilike '%${query}%' order by created_at desc limit ${limit}`)
+        const products = await pool.query(`select * from products where name ilike '%${query}%' order by created_at desc limit ${limit} offset ${offset}`)
         return products.rows
     } catch (err) {
         throw new Error(err.message)
