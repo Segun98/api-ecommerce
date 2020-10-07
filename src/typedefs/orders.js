@@ -6,14 +6,17 @@ module.exports = gql `
 
 type orders{
     id: ID,
+    order_id:ID,
     name: String,
     price: Int,
     quantity: Int,
     delivery_fee: Int,
     subtotal: Int,
     description: String,
+    accepted:String,
     completed: String,
     canceled: String,
+    request:String,
     customer_email: String,
     vendor_email: String,
     customer_phone: String,

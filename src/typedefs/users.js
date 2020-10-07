@@ -16,10 +16,10 @@ type users{
     business_name: String,
     business_name_slug:String,
     business_address: String,
-    business_area: String,
     business_image: String,
     business_bio:String,
-    customer_address: String
+    customer_address: String,
+    featured:String
   }
 
   # Response objects 
@@ -36,10 +36,10 @@ type users{
     business_name: String,
     business_name_slug:String,
     business_address: String,
-    business_area: String,
     business_image: String,
     business_bio:String,
     customer_address: String,
+    featured:String,
     jwt_user_id: String
     #nested resolver
     usersProducts:[productsRes]

@@ -8,7 +8,6 @@ async function updateProfile(_, {
     phone,
     business_name,
     business_address,
-    business_area,
     business_image,
     business_bio,
     customer_address
@@ -24,12 +23,11 @@ async function updateProfile(_, {
         phone = $4,
         business_name = $5,
         business_address = $6,
-        business_area = $7,
-        business_image = $8,
-        business_bio = $9,
-        customer_address = $10  where id = $1`,
+        business_image = $7,
+        business_bio = $8,
+        customer_address = $9  where id = $1`,
             [req.payload.user_id, first_name, last_name,
-                phone, business_name, business_address, business_area,
+                phone, business_name, business_address,
                 business_image, business_bio, customer_address
             ])
 

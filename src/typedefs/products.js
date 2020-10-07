@@ -15,7 +15,8 @@ module.exports = gql `
         image: String,
         in_stock: String,
         creator_id: String,
-        available_qty: Int
+        available_qty: Int,
+        featured:String
     }
           
     # Response objects from fetching a product
@@ -31,7 +32,8 @@ module.exports = gql `
         in_stock: String,
         creator_id: String,
         created_at: String,
-        available_qty: Int
+        available_qty: Int,
+        featured:String,
         #nested query . userRes can be found in ./users
         creator: usersRes
         related: [productsRes]

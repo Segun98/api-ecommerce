@@ -10,6 +10,7 @@ const {
 //refresh token before access token expires
 router.post("/refreshtoken", cookieParser(), async (req, res) => {
 
+
     //token from header
     const token = req.cookies.ecom
 
@@ -28,7 +29,6 @@ router.post("/refreshtoken", cookieParser(), async (req, res) => {
             err
         })
     }
-
     //last check for user
     const user = await pool.query("select * from users where id = $1", [payload.user_id]);
     if (user.rows.length === 0) {
