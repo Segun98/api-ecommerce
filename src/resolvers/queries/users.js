@@ -99,11 +99,17 @@ async function customerProfile(_, {}, {
 
 
 //gets all stores. 
-async function getStores(_, {}, {
+async function getStores(_, {
+    query,
+    limit,
+    offset
+}, {
     pool
 }) {
     try {
-        const stores = await pool.query(`select * from users where role = $1`, ["vendor"])
+        //conditional. add search query only if there's a query value coming in
+        let cond = query ? `and business_name ilike '%${query}%'` : ""
+        const stores = await pool.query(`select * from users where role = $1 ${cond} limit ${limit} offset ${offset}`, ["vendor"])
         return stores.rows
     } catch (err) {
         throw new Error(err.message)

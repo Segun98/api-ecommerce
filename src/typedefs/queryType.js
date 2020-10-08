@@ -13,7 +13,7 @@ module.exports = gql `
      user(business_name_slug:String!):usersRes,
 
      #gets all stores
-     getStores:[usersRes]
+     getStores(query:String limit:Int offset:Int):[usersRes]
 
       #gets a user by jwt id
      getUser:usersRes
