@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken")
 const createToken = (users) => {
     return jwt.sign({
         user_id: users.rows[0].id,
-        email_id: users.rows[0].email,
         role_id: users.rows[0].role
     }, process.env.TOKEN_SECRET, {
         expiresIn: "59m"
@@ -14,7 +13,6 @@ const createToken = (users) => {
 const createRefreshToken = (users) => {
     return jwt.sign({
         user_id: users.rows[0].id,
-        email_id: users.rows[0].email,
         role_id: users.rows[0].role
     }, process.env.REFRESH_SECRET, {
         expiresIn: "7d"
