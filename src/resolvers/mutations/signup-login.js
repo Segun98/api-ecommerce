@@ -8,8 +8,6 @@ const {
 } = require("../../helpers/auth/create-tokens")
 
 /*
- Returns all users for admin dashboard.
-
  in all functions/mutations, first arg expects parent, second expects inputs, third - context
 */
 async function signUp(_, {
