@@ -12,7 +12,7 @@ async function getCustomerOrders(_, {}, {
         throw new Error("Unauthorised")
     }
     try {
-        const result = await pool.query(`select * from orders where customer_id = $1`, [req.payload.user_id])
+        const result = await pool.query(`select * from orders where customer_id = $1 order by created_at desc`, [req.payload.user_id])
         return result.rows
     } catch (err) {
         throw new Error(err.message)
