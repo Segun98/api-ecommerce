@@ -1,7 +1,22 @@
+//@ts-check
 const {
     verifyJwt
 } = require("../../helpers/auth/middlewares")
 
+/** 
+* @param {any} _
+* @param {Object} obj -an object
+* @param {String} obj.name
+* @param {String} obj.name_slug
+* @param {String} obj.description
+* @param {String} obj.price
+* @param {String} obj.category
+* @param {String} obj.party_category
+* @param {String} obj.image
+* @param {number} obj.available_qty
+* @param {number} obj.stk
+  @param{any} pool
+*/
 async function addProduct(_, {
     name,
     name_slug,
@@ -16,7 +31,6 @@ async function addProduct(_, {
     req
 }) {
     verifyJwt(req)
-
     // #checks for role, should only be vendor 
     if (req.payload.role_id !== 'vendor') {
         throw new Error("Unauthorised")
