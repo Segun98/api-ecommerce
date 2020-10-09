@@ -12,8 +12,11 @@ const {
     single,
     multiple
 } = require('./helpers/dataloader')
+const compression = require('compression')
 require('dotenv').config()
 
+// compress all responses
+app.use(compression());
 app.use(express.json())
 app.use(cors({
     origin: 'http://localhost:3000',
