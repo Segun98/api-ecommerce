@@ -7,7 +7,11 @@
     "start": "node ./src/index",
     "dev": "nodemon ./src/index",
     "devcluster": "nodemon ./src/cluster",
-    "startcluster": "node ./src/cluster"
+    "startcluster": "node ./src/cluster",
+    "pm2": "pm2 start src/index.js -i max",
+    "stoppm2": "pm2 stop src/index.js",
+    "listPm2": "pm2 ls",
+    "log": "pm2 log"
   },
   "repository": {
     "type": "git",
