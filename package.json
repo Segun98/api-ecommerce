@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index",
-    "dev": "nodemon ./src/index"
+    "dev": "nodemon ./src/index",
+    "devcluster": "nodemon ./src/cluster",
+    "startcluster": "node ./src/cluster"
   },
   "repository": {
     "type": "git",
