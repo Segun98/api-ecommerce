@@ -69,7 +69,7 @@ module.exports = gql `
           prod_creator_id: ID):customRes
 
           cancelOrder(id:ID!):customRes
-          completeOrder(id:ID!):customRes
+          acceptOrder(id:ID!):customRes
     }
   
   `;
