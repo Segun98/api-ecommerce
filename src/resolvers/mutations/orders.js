@@ -81,6 +81,17 @@ async function cancelOrder(_, {
     req
 }) {
     verifyJwt(req)
+
+    /* ensures you cant cancel an ACCEPTED order.
+     I spent hours debugging this. Apparently Nodejs treats the accepted value as a BOOLEAN. It is set as a STRING in my database and GRAPHQL type definition
+ */
+    const accepted = await pool.query(`select accepted from orders where id = $1`, [id])
+    accepted.rows.forEach(a => {
+        if (a.accepted) {
+            throw new Error("Can't Cancel, Order Has Been Accepted")
+        }
+    })
+
     try {
         await pool.query(`update orders set canceled = $2 where id = $1`, [id, 'true'])
         return {
