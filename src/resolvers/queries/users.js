@@ -109,7 +109,7 @@ async function getStores(_, {
     try {
         //conditional. add search query only if there's a query value coming in
         let cond = query ? `and business_name ilike '%${query}%'` : ""
-        const stores = await pool.query(`select * from users where role = $1 ${cond} limit ${limit} offset ${offset}`, ["vendor"])
+        const stores = await pool.query(`select * from users where role = $1 and pending = $2 ${cond} limit ${limit} offset ${offset}`, ["vendor", "false"])
         return stores.rows
     } catch (err) {
         throw new Error(err.message)
