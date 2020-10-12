@@ -14,6 +14,7 @@ CREATE TABLE users
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     pending boolean NOT NULL,
+    online boolean default 'true',
     role user_role NOT NULL,
     phone VARCHAR(255) default null,
     business_name VARCHAR(255) UNIQUE default null,
