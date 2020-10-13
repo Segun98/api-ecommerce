@@ -7,13 +7,16 @@ const typeDefs = require("./typedefs")
 const resolvers = require("./resolvers")
 const pool = require("./db")
 const cors = require("cors")
-const auth = require("./helpers/auth/auth")
 const {
     single,
     multiple
 } = require('./helpers/dataloader')
 const compression = require('compression')
 require('dotenv').config()
+
+//REST ROUTES
+const auth = require("./helpers/auth/auth")
+const upload = require("./helpers/image-upload/upload")
 
 // compress all responses
 app.use(compression());
@@ -24,8 +27,9 @@ app.use(cors({
 }));
 
 //refresh-token and logout routes
-
 app.use("/api", auth)
+//image upload route
+app.use("/api", upload)
 
 const server = new ApolloServer({
     typeDefs,
