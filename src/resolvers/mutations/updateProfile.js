@@ -10,7 +10,8 @@ async function updateProfile(_, {
     business_address,
     business_image,
     business_bio,
-    customer_address
+    customer_address,
+    online
 }, {
     pool,
     req
@@ -25,10 +26,10 @@ async function updateProfile(_, {
         business_address = $6,
         business_image = $7,
         business_bio = $8,
-        customer_address = $9  where id = $1`,
+        customer_address = $9, online = $10 where id = $1`,
             [req.payload.user_id, first_name, last_name,
                 phone, business_name, business_address,
-                business_image, business_bio, customer_address
+                business_image, business_bio, customer_address, online
             ])
 
         return {

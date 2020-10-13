@@ -14,7 +14,7 @@ module.exports = gql `
       logIn(email: String!, password: String!):loginRes
   
       #where customers and vendors update their profile
-     updateProfile(first_name: String, last_name: String, phone:String, business_name: String, business_address: String, business_image: String, business_bio: String, customer_address: String): customRes
+     updateProfile(first_name: String, last_name: String, phone:String, business_name: String, business_address: String, business_image: String, business_bio: String, customer_address: String, online:String): customRes
 
     #Products types def in './products.js'
      addProduct(
