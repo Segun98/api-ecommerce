@@ -1,24 +1,6 @@
 /*
- Returns all products and a single product
  first arg expects parent, second expects inputs, third - context
 */
-
-
-async function products(_, {
-    limit
-}, {
-    pool
-}) {
-    try {
-        // const start = Date.now()
-        const users = await pool.query(`select * from products order by created_at desc limit ${limit}`)
-        //     console.log(Date.now() - start);
-        return users.rows
-
-    } catch (err) {
-        throw new Error(err.message)
-    }
-}
 
 async function product(_, {
     name_slug
@@ -42,11 +24,6 @@ async function byCategory(_, {
 }) {
     try {
         const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.image from products p inner join users u on p.creator_id = u.id where p.category = $1 and u.online = $2 order by p.created_at desc limit ${limit} offset ${offset}`, [category, "true"])
-
-        // if (theres a filter) {
-        //     const test = await pool.query(`select * from products where category = $1 order by price asc limit ${limit}`, [category])
-        //     console.log(test.rows);
-        // }
         return products.rows
     } catch (err) {
         throw new Error(err.message)
@@ -97,7 +74,6 @@ async function search(_, {
 }
 module.exports = {
     product,
-    products,
     search,
     byCategory,
     partyCategory,

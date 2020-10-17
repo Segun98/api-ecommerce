@@ -4,29 +4,8 @@ const {
 } = require("../../helpers/auth/middlewares");
 
 /*
- Returns all users for admin dashboard
  first arg expects parent, second expects inputs, third - context
 */
-
-
-async function users(_, {}, {
-    pool,
-    req
-}) {
-    // verifyJwt(req)
-
-    // if (req.payload.role_id !== "admin") {
-    //     throw new Error("Unauthorised, you are not an admin")
-    // }
-    try {
-        const users = await pool.query(`select * from users order by created_at desc`)
-        return users.rows
-
-    } catch (err) {
-        throw new Error(err.message)
-    }
-}
-
 
 //public profile
 async function user(_, {
@@ -119,7 +98,6 @@ async function getStores(_, {
 
 
 module.exports = {
-    users,
     user,
     getUser,
     editUserPage,

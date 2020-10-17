@@ -34,7 +34,6 @@ async function getCart(_, {
         verifyJwt(req)
 
         const cart = await pool.query(`select * from cart where id = $1`, [id])
-
         return cart.rows[0]
 
     } catch (err) {

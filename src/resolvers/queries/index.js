@@ -1,6 +1,5 @@
 const {
     user,
-    users,
     getUser,
     editUserPage,
     customerProfile,
@@ -8,7 +7,6 @@ const {
 } = require("./users")
 const {
     product,
-    products,
     search,
     byCategory,
     partyCategory,
@@ -20,9 +18,15 @@ const {
 } = require("./cart")
 const {
     getCustomerOrders,
-    getVendorOrders,
-    getAllOrders
+    getVendorOrders
 } = require("./orders")
+
+//all admin functionality here
+const {
+    getAllOrders,
+    users,
+    products
+} = require("./admin")
 
 module.exports = {
     users,

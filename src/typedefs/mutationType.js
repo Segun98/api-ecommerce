@@ -70,6 +70,10 @@ module.exports = gql `
 
           cancelOrder(id:ID!):customRes
           acceptOrder(id:ID!):customRes
+
+          #Admin
+          completeOrder(id:ID!):customRes,
+          cancelOrderAdmin(id:ID!):customRes
     }
   
   `;

@@ -37,24 +37,8 @@ async function getVendorOrders(_, {
     }
 }
 
-//admin only
-async function getAllOrders(_, {}, {
-    pool,
-    req
-}) {
-    verifyJwt(req)
-    if (req.payload.role_id !== 'admin') {
-        throw new Error("Unauthorised, admin only")
-    }
-    try {
-        const result = await pool.query(`select * from orders`)
-        return result.rows
-    } catch (err) {
-        throw new Error(err.message)
-    }
-}
+
 module.exports = {
     getCustomerOrders,
-    getVendorOrders,
-    getAllOrders
+    getVendorOrders
 }
