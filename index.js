@@ -17,12 +17,18 @@ require('dotenv').config()
 //REST ROUTES
 const auth = require("./helpers/auth/auth")
 const upload = require("./helpers/image-upload/upload")
+const email = require("./helpers/emails")
 
+//endpoints
+let endpoints = ['http://localhost:3000', 'https://partystore.vercel.app']
 // compress all responses
 app.use(compression());
 app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: endpoints[1],
     credentials: true
 }));
 
@@ -30,6 +36,8 @@ app.use(cors({
 app.use("/api", auth)
 //image upload route
 app.use("/api", upload)
+//emails
+app.use("/api", email)
 
 const server = new ApolloServer({
     typeDefs,
@@ -47,13 +55,13 @@ const server = new ApolloServer({
 });
 
 
-
 server.applyMiddleware({
     app,
-    cors: {
-        origin: "http://localhost:3000",
-        credentials: true
-    }
+    cors: false,
+    // cors: {
+    //     origin: endpoints[1],
+    //     credentials: true
+    // }
 });
 
 const PORT = process.env.NODE_ENV || 4000

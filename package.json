@@ -4,12 +4,12 @@
   "description": "the api powering an ecommerce app",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index",
-    "dev": "nodemon ./src/index",
-    "devcluster": "nodemon ./src/cluster",
-    "startcluster": "node ./src/cluster",
-    "pm2": "pm2 start src/index.js -i max --watch",
-    "stoppm2": "pm2 stop src/index.js --watch",
+    "start": "node index",
+    "dev": "nodemon index",
+    "devcluster": "nodemon cluster.js",
+    "startcluster": "node cluster.js",
+    "pm2": "pm2 start /index.js -i max",
+    "stoppm2": "pm2 stop /index.js --watch",
     "listPm2": "pm2 ls",
     "log": "pm2 log"
   },

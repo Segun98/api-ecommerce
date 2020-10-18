@@ -7,7 +7,16 @@ async function welcomeVendor(name, email) {
         to: email,
         from: "shegunolanitori@gmail.com",
         subject: "Welcome To PartyStore",
-        html: ""
+        html: `<div style="color: #02247a">
+        <h3>Hello ${name},</h3>
+        <h3>You Have Successfully Signed Up On <strong style="color:purple">PartyStore!</strong></h3>
+        <h3>We love our vendors and are looking forward to you making sales with us!</h3>
+        <br>
+        <h3>Please Read Our Privacy Policy <a href="#">Click Here</a></h3>
+        <br>
+        <p>Regards,</p>
+        <h3>Segun</h3>
+        </div>`
     }
 
     try {
@@ -25,7 +34,15 @@ async function welcomeCustomer(name, email) {
         to: email,
         from: "shegunolanitori@gmail.com",
         subject: "Welcome To PartyStore",
-        html: ""
+        html: `<div style="color: #02247a">
+        <h3>Hello ${name},</h3>
+        <h3>You Have Successfully Signed Up On <strong style="color:purple">PartyStore!</strong></h3>
+        <h3>Buying your favourite Party Items has never been this easy!</h3>
+        <br>
+        <h3>Please Read Our Privacy Policy <a href="#">Click Here</a></h3>
+        <p>Regards,</p>
+        <h3>Segun.</h3>
+        </div>`
     }
 
     try {

@@ -10,7 +10,6 @@ const {
 //refresh token before access token expires
 router.post("/refreshtoken", cookieParser(), async (req, res) => {
 
-
     //token from header
     const token = req.cookies.ecom
 
@@ -22,7 +21,7 @@ router.post("/refreshtoken", cookieParser(), async (req, res) => {
 
     let payload = null
     try {
-        payload = jwt.verify(token, process.env.REFRESH_SECRET) //returns token
+        payload = jwt.verify(token, process.env.REFRESH_SECRET) //returns token . //refresh token
     } catch (err) {
         return res.status(401).send({
             accessToken: "",
@@ -45,7 +44,7 @@ router.post("/refreshtoken", cookieParser(), async (req, res) => {
     res.cookie('ecom', createRefreshToken(user), {
         httpOnly: true,
         expires: date,
-        // secure: true
+        secure: true
     })
 
     res.cookie('role', user.rows[0].role, {
@@ -67,7 +66,7 @@ router.post("/logout", (req, res, next) => {
         res.send("Logged Out")
         next()
     } catch (err) {
-        console.log(err);
+        throw new Error(err.message)
     }
 })
 

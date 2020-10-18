@@ -88,7 +88,7 @@ async function cancelOrder(_, {
     const accepted = await pool.query(`select accepted from orders where id = $1`, [id])
     accepted.rows.forEach(a => {
         if (a.accepted) {
-            throw new Error("Can't Cancel, Order Has Been Accepted")
+            throw new Error("Can't Cancel, Your Order is On its Way!")
         }
     })
 

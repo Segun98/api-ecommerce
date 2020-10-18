@@ -6,6 +6,10 @@ const {
     createRefreshToken,
     createToken
 } = require("../../helpers/auth/create-tokens")
+const {
+    welcomeVendor,
+    welcomeCustomer
+} = require("../../helpers/emails/email_functions")
 
 /*
  in all functions/mutations, first arg expects parent, second expects inputs, third - context
@@ -67,6 +71,12 @@ async function signUp(_, {
                 customer_address
             ]);
 
+        if (role === "vendor") {
+            await welcomeVendor(first_name, email)
+        } else if (role === "customer") {
+            await welcomeCustomer(first_name, email)
+        }
+
         return {
             message: "Sign up successful!"
         }
@@ -104,7 +114,7 @@ async function logIn(_, {
         res.cookie('ecom', createRefreshToken(users), {
             httpOnly: true,
             expires: date,
-            // secure: true
+            secure: true
         })
 
         //role here is either customer, admin or vendor. it's determined at sign up
