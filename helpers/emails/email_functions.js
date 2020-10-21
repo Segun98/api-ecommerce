@@ -21,15 +21,13 @@ async function welcomeVendor(name, email) {
 
     try {
         await sgMail.send(content)
-        res.status(200).send('Message sent successfully.')
     } catch (error) {
-        console.log('ERROR', error)
-        res.status(400).send('Message not sent.')
+        console.log(error.message)
     }
 
 }
 
-async function welcomeCustomer(name, email) {
+async function welcomeCustomer(name, email, res) {
     const content = {
         to: email,
         from: "shegunolanitori@gmail.com",
@@ -47,10 +45,8 @@ async function welcomeCustomer(name, email) {
 
     try {
         await sgMail.send(content)
-        res.status(200).send('Message sent successfully.')
     } catch (error) {
-        console.log('ERROR', error)
-        res.status(400).send('Message not sent.')
+        console.log(error.message)
     }
 
 }

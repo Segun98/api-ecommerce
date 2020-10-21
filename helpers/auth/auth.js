@@ -42,9 +42,9 @@ router.post("/refreshtoken", cookieParser(), async (req, res) => {
 
     //sent back cookies
     res.cookie('ecom', createRefreshToken(user), {
-        httpOnly: true,
+        // httpOnly: true,
         expires: date,
-        secure: true
+        // secure: true
     })
 
     res.cookie('role', user.rows[0].role, {

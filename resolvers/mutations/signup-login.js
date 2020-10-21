@@ -71,6 +71,7 @@ async function signUp(_, {
                 customer_address
             ]);
 
+        // welcome emails
         if (role === "vendor") {
             await welcomeVendor(first_name, email)
         } else if (role === "customer") {
@@ -112,11 +113,10 @@ async function logIn(_, {
         //imports to create tokens
         const token = createToken(users) //returns access token
         res.cookie('ecom', createRefreshToken(users), {
-            httpOnly: true,
+            // httpOnly: true,
             expires: date,
-            secure: true
+            // secure: true,
         })
-
         //role here is either customer, admin or vendor. it's determined at sign up
         res.cookie('role', users.rows[0].role, {
             expires: date,
