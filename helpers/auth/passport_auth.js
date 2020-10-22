@@ -4,24 +4,32 @@ const {
     createRefreshToken,
     createToken
 } = require("./create-tokens")
-const passport = require('passport')
+const passport = require('passport');
+const {
+    welcomeCustomer
+} = require("../emails/email_functions");
+const bcrypt = require("bcryptjs")
+
 
 router.get('/auth/google',
     passport.authenticate('google', {
         scope: ['email', 'profile']
     }));
 
-router.get("/failed", (req, res) => {
+router.get("/auth/failed", (req, res) => {
     res.send("Error Authenticating With Google")
 })
 
+
 router.get('/auth/google/callback',
     passport.authenticate('google', {
-        failureRedirect: '/failed',
+        failureRedirect: '/auth/failed',
         session: false
     }),
     async function (req, res) {
         try {
+
+            //if user exists, Login
             let users = await pool.query(`select * from users where email = $1`, [req.user.email])
             if (users.rows.length > 0) {
                 // cookie expiry date - 7 days 
@@ -43,7 +51,9 @@ router.get('/auth/google/callback',
                     role: users.rows[0].role
                 })
             } else {
+                //else, sign up
 
+                //Password is google user id to track people signing up with google
                 await pool.query(`INSERT INTO users (first_name,last_name,email,password,phone,role,pending,business_name,
                 business_name_slug,
                 business_address,
@@ -57,10 +67,12 @@ router.get('/auth/google/callback',
                         null,
                         null
                     ]);
+                await welcomeCustomer(req.user.first_name, req.user.email)
+                res.send("signup successful")
             }
-            res.send("signup successful")
-        } catch (err) {
 
+        } catch (err) {
+            res.send(err.message)
         }
     });
 
