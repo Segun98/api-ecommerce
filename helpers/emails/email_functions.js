@@ -27,7 +27,7 @@ async function welcomeVendor(name, email) {
 
 }
 
-async function welcomeCustomer(name, email, res) {
+async function welcomeCustomer(name, email) {
     const content = {
         to: email,
         from: "shegunolanitori@gmail.com",
