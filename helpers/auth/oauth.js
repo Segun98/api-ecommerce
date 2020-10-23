@@ -15,13 +15,13 @@ router.post("/oauth/login", async (req, res) => {
     const {
         email
     } = req.body
+
     try {
         const users = await pool.query("select * from users where email = $1", [email]);
 
         if (users.rows.length === 0) {
-            return res.send("You need to sign up before logging in")
+            throw new Error("You need to sign up before logging in")
         }
-
         // cookie expiry date - 7 days 
         let date = new Date()
         date.setDate(date.getDate() + 7);
@@ -38,13 +38,13 @@ router.post("/oauth/login", async (req, res) => {
             expires: date,
         });
 
-        return {
+        res.send({
             accesstoken: token,
             role: users.rows[0].role
-        }
+        })
 
     } catch (err) {
-        throw new Error(err.message)
+        res.send(err.message)
     }
 })
 
@@ -79,7 +79,7 @@ router.post("/oauth/signup", async (req, res) => {
                 null,
                 null,
                 null,
-                null,
+                'Google',
                 null
             ]);
         await welcomeCustomer(first_name, email)
