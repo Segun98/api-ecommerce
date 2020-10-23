@@ -15,26 +15,27 @@ const {
 const compression = require('compression')
 const passport = require('passport')
 require('dotenv').config()
-const passportAuth = require("./helpers/auth/passport_auth")
-require("./helpers/auth/passport")
+// require("./helpers/auth/passport")
 
 //REST ROUTES
+const oAuth = require("./helpers/auth/oauth")
 const auth = require("./helpers/auth/auth")
 const upload = require("./helpers/image-upload/upload")
 const email = require("./helpers/emails")
 
 //endpoints
 let endpoints = ['http://localhost:3000', 'https://partystore.vercel.app']
+app.use(cors({
+    origin: endpoints[0],
+    credentials: true
+}));
 // compress all responses
 app.use(compression());
 app.use(express.json())
 app.use(express.urlencoded({
     extended: false
 }))
-app.use(cors({
-    origin: endpoints[0],
-    credentials: true
-}));
+
 
 app.use(passport.initialize())
 
@@ -44,8 +45,8 @@ app.use("/api", auth)
 app.use("/api", upload)
 //emails
 app.use("/api", email)
-//passport authentication
-app.use("/", passportAuth)
+//oauth authentication
+app.use("/api", oAuth)
 
 const server = new ApolloServer({
     typeDefs,
