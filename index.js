@@ -13,7 +13,7 @@ const {
     multiple
 } = require('./helpers/dataloader')
 const compression = require('compression')
-const passport = require('passport')
+// const passport = require('passport')
 require('dotenv').config()
 // require("./helpers/auth/passport")
 
@@ -37,7 +37,7 @@ app.use(express.urlencoded({
 }))
 
 
-app.use(passport.initialize())
+// app.use(passport.initialize())
 
 //refresh-token and logout routes
 app.use("/api", auth)
