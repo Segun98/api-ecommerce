@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "the api powering an ecommerce app",
   "main": "index.js",
+  "engines": {
+    "node": "12.18.3"
+  },
   "scripts": {
     "start": "node index",
     "dev": "nodemon index",
