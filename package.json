@@ -4,7 +4,7 @@
   "description": "the api powering an ecommerce app",
   "main": "index.js",
   "scripts": {
-    "start": "pm2 start index.js -i max --watch",
+    "start": "node index",
     "dev": "nodemon index",
     "devcluster": "nodemon cluster.js",
     "startcluster": "node cluster.js",
