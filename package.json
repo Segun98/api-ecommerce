@@ -4,7 +4,8 @@
   "description": "the api powering an ecommerce app",
   "main": "index.js",
   "engines": {
-    "node": "12.18.3"
+    "node": "12.18.3",
+    "npm":"6.13.7"
   },
   "scripts": {
     "start": "node index",
