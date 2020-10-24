@@ -73,7 +73,7 @@ server.applyMiddleware({
     // }
 });
 
-const PORT = process.env.NODE_ENV || 4000
+const PORT = process.env.PORT || 4000
 
 app.listen({
         port: PORT
