@@ -17,18 +17,19 @@ const compression = require('compression')
 require('dotenv').config()
 // require("./helpers/auth/passport")
 
+//endpoints & Cors
+let endpoints = ['http://localhost:3000', 'https://partystore.vercel.app']
+app.use(cors({
+    origin: endpoints[1],
+    credentials: true
+}));
+
 //REST ROUTES
 const oAuth = require("./helpers/auth/oauth")
 const auth = require("./helpers/auth/auth")
 const upload = require("./helpers/image-upload/upload")
 const email = require("./helpers/emails")
 
-//endpoints
-let endpoints = ['http://localhost:3000', 'https://partystore.vercel.app']
-app.use(cors({
-    origin: endpoints[0],
-    credentials: true
-}));
 // compress all responses
 app.use(compression());
 app.use(express.json())

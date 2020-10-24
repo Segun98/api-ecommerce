@@ -4,6 +4,8 @@
   "builds": [{ "src": "/index.js", "use": "@vercel/node" }],
   "routes": [
     { "src": "/graphql", "dest": "/index.js" },
-    { "src": "/api/.*", "dest": "/index.js" }
+    { "src": "/api/.*", "dest": "/index.js" },
+    { "src": "/api/oauth/login", "dest": "/index.js" },
+    { "src": "/api/oauth/signup", "dest": "/index.js" }
   ]
 }

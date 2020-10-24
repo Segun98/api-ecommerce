@@ -19,8 +19,9 @@ router.post("/oauth/login", async (req, res) => {
     try {
         const users = await pool.query("select * from users where email = $1", [email]);
 
+        //user that doesn't exist
         if (users.rows.length === 0) {
-            throw new Error("You need to sign up before logging in")
+            return res.status(404).send('User does not exist')
         }
         // cookie expiry date - 7 days 
         let date = new Date()
@@ -58,11 +59,10 @@ router.post("/oauth/signup", async (req, res) => {
     } = req.body
 
     try {
-
         const emailExists = await pool.query(`select email from users where email = $1`, [email])
 
         if (emailExists.rows.length > 0) {
-            return res.send("Email already exists, Login")
+            return res.status(404).send('User exists, Login')
         }
         // hash password , in this case, user id from google
 
