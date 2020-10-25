@@ -36,24 +36,27 @@ router.post("/refreshtoken", cookieParser(), async (req, res) => {
         })
     }
 
+    /* 
+            COOKIE NOT SETTING(VERCEL AND HEROKU PROBLEMS) SO I'D DO IT CLIENT SIDE :-(
+            */
+    // let date = new Date()
+    // date.setDate(date.getDate() + 7); //7 days
 
-    let date = new Date()
-    date.setDate(date.getDate() + 7); //7 days
+    // //sent back cookies
+    // res.cookie('ecom', createRefreshToken(user), {
+    //     // httpOnly: true,
+    //     expires: date,
+    //     // secure: true
+    // })
 
-    //sent back cookies
-    res.cookie('ecom', createRefreshToken(user), {
-        // httpOnly: true,
-        expires: date,
-        // secure: true
-    })
-
-    res.cookie('role', user.rows[0].role, {
-        expires: date,
-    });
+    // res.cookie('role', user.rows[0].role, {
+    //     expires: date,
+    // });
 
     //sends a new access token
     return res.status(200).send({
-        accessToken: createToken(user),
+        refreshtoken: createRefreshToken(user),
+        accesstoken: createToken(user),
         role: user.rows[0].role
     })
 

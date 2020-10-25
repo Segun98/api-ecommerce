@@ -24,22 +24,27 @@ router.post("/oauth/login", async (req, res) => {
             return res.status(404).send('User does not exist')
         }
         // cookie expiry date - 7 days 
-        let date = new Date()
-        date.setDate(date.getDate() + 7);
+        // let date = new Date()
+        // date.setDate(date.getDate() + 7);
 
         //imports to create tokens
         const token = createToken(users) //returns access token
-        res.cookie('ecom', createRefreshToken(users), {
-            // httpOnly: true,
-            expires: date,
-            // secure: true,
-        })
-        //role here is either customer, admin or vendor. it's determined at sign up
-        res.cookie('role', users.rows[0].role, {
-            expires: date,
-        });
+
+        /* 
+        COOKIE NOT SETTING(VERCEL AND HEROKU PROBLEMS) SO I'D DO IT CLIENT SIDE :-(
+        */
+        // res.cookie('ecom', createRefreshToken(users), {
+        //     // httpOnly: true,
+        //     expires: date,
+        //     // secure: true,
+        // })
+        // //role here is either customer, admin or vendor. it's determined at sign up
+        // res.cookie('role', users.rows[0].role, {
+        //     expires: date,
+        // });
 
         res.send({
+            refreshtoken: createRefreshToken(users),
             accesstoken: token,
             role: users.rows[0].role
         })

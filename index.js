@@ -78,6 +78,5 @@ const PORT = process.env.PORT || 4000
 app.listen({
         port: PORT
     }, () =>
-    console.log(`🚀 Server ready at PORT ${PORT}`)
-    // console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 );
