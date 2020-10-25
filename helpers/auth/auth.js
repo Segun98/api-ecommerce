@@ -10,8 +10,11 @@ const {
 //refresh token before access token expires
 router.post("/refreshtoken", cookieParser(), async (req, res) => {
 
+    const {
+        rToken
+    } = req.body
     //token from header
-    const token = req.cookies.ecom
+    const token = rToken
 
     if (!token) {
         return res.status(401).send({
