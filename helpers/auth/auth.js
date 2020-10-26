@@ -13,7 +13,7 @@ router.post("/refreshtoken", cookieParser(), async (req, res) => {
     const {
         rToken
     } = req.body
-    //token from header
+    //token from body, should be from cookies .
     const token = rToken
 
     if (!token) {
