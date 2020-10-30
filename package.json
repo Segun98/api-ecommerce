@@ -5,10 +5,10 @@
   "main": "index.js",
   "engines": {
     "node": "12.18.3",
-    "npm":"6.13.7"
+    "npm": "6.13.7"
   },
   "scripts": {
-    "start": "node index",
+    "start": "node cluster.js",
     "dev": "nodemon index",
     "devcluster": "nodemon cluster.js",
     "startcluster": "node cluster.js",
