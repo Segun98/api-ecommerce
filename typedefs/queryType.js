@@ -24,8 +24,11 @@ module.exports = gql `
      #gets a user but for edit
     editUserPage(id:ID!):usersRes
 
-    #Query for products, type defs is in './product.js'
+    #Query for products
      products(limit:Int): [productsRes],
+
+    #featured products 
+     featuredProducts(limit:Int): [productsRes],
 
     #get a product
     product(name_slug:String!):productsRes,
