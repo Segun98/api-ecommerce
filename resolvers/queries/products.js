@@ -15,6 +15,26 @@ async function product(_, {
     }
 }
 
+
+async function featuredProducts(_, {
+    limit
+}, {
+    pool
+}) {
+    try {
+        // const start = Date.now()
+        // console.time('Query time');
+        const users = await pool.query(`select * from products where featured = $1 order by created_at desc limit ${limit}`, ['true'])
+        // console.timeEnd('Query time');
+        // console.log(Date.now() - start);
+        return users.rows
+
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
+
+
 async function byCategory(_, {
     category,
     limit,
@@ -74,6 +94,7 @@ async function search(_, {
 }
 module.exports = {
     product,
+    featuredProducts,
     search,
     byCategory,
     partyCategory,

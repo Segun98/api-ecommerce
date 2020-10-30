@@ -26,14 +26,12 @@ async function products(_, {
 }, {
     pool
 }) {
-    // verifyJwt(req)
-    // if (req.payload.role_id !== 'admin') {
-    //     throw new Error("Unauthorised, admin only")
-    // }
+    verifyJwt(req)
+    if (req.payload.role_id !== 'admin') {
+        throw new Error("Unauthorised, admin only")
+    }
     try {
-        // const start = Date.now()
         const users = await pool.query(`select * from products order by created_at desc limit ${limit}`)
-        // console.log(Date.now() - start);
         return users.rows
 
     } catch (err) {

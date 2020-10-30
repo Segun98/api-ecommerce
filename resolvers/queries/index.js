@@ -10,7 +10,8 @@ const {
     search,
     byCategory,
     partyCategory,
-    editProductPage
+    editProductPage,
+    featuredProducts
 } = require("./products")
 const {
     getCartItems,
@@ -34,6 +35,7 @@ module.exports = {
     getUser,
     product,
     products,
+    featuredProducts,
     search,
     byCategory,
     partyCategory,
