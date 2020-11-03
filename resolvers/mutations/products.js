@@ -12,7 +12,7 @@ const {
 * @param {String} obj.price
 * @param {String} obj.category
 * @param {String} obj.party_category
-* @param {String} obj.image
+* @param {String} obj.images
 * @param {number} obj.available_qty
 * @param {number} obj.stk
   @param{any} pool
@@ -24,7 +24,7 @@ async function addProduct(_, {
     price,
     category,
     party_category,
-    image,
+    images,
     available_qty
 }, {
     pool,
@@ -50,7 +50,7 @@ async function addProduct(_, {
                 price,
                 category,
                 party_category,
-                image,
+                images,
                 available_qty,
                 creator_id) 
                 values($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
@@ -60,7 +60,7 @@ async function addProduct(_, {
                 price,
                 category,
                 party_category,
-                image,
+                images,
                 available_qty,
                 req.payload.user_id
             ])
@@ -84,7 +84,7 @@ async function updateProduct(_, {
     price,
     category,
     party_category,
-    image,
+    images,
     in_stock,
     available_qty,
     creator_id
@@ -99,12 +99,12 @@ async function updateProduct(_, {
     }
 
     try {
-        await pool.query(`update products set name = $2, description = $3, price = $4, category = $5,party_category=$6, image = $7, in_stock = $8, available_qty=$9 where id = $1`, [id, name,
+        await pool.query(`update products set name = $2, description = $3, price = $4, category = $5,party_category=$6, images = $7, in_stock = $8, available_qty=$9 where id = $1`, [id, name,
             description,
             price,
             category,
             party_category,
-            image,
+            images,
             in_stock,
             available_qty
         ])

@@ -38,11 +38,15 @@ CREATE TABLE users
         price int NOT NULL,
         category VARCHAR(255),
         party_category VARCHAR(255),
-        image VARCHAR(255),
+        image text
+        ARRAY[4],
         featured boolean DEFAULT 'false',
         in_stock boolean DEFAULT 'true',
         available_qty int NOT NULL DEFAULT 1,
-        creator_id uuid references users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+        creator_id uuid references users
+        (id) ON
+        DELETE CASCADE ON
+        UPDATE CASCADE NOT NULL,
         created_at TIMESTAMP
         with time zone DEFAULT CURRENT_TIMESTAMP
 )

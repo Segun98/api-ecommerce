@@ -99,7 +99,7 @@ async function logIn(_, {
         const users = await pool.query("select * from users where email = $1", [email]);
 
         if (users.rows.length === 0) {
-            throw new Error("Wrong email or password")
+            throw new Error("User does not exist")
         }
         const validPass = await bcrypt.compare(password, users.rows[0].password)
         if (!validPass) {

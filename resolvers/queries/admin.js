@@ -8,9 +8,14 @@ async function users(_, {}, {
     req
 }) {
     verifyJwt(req)
-    if (req.payload.role_id !== "admin") {
+    const {
+        role_id
+    } = req.payload
+
+    if (!(role_id === "admin" || role_id === "super_admin")) {
         throw new Error("Unauthorised, you are not an admin")
     }
+
     try {
         const users = await pool.query(`select * from users order by created_at desc`)
         return users.rows
@@ -22,16 +27,22 @@ async function users(_, {}, {
 
 
 async function products(_, {
-    limit
+    limit,
+    offset
 }, {
-    pool
+    pool,
+    req
 }) {
     verifyJwt(req)
-    if (req.payload.role_id !== 'admin') {
-        throw new Error("Unauthorised, admin only")
+    const {
+        role_id
+    } = req.payload
+
+    if (!(role_id === "admin" || role_id === "super_admin")) {
+        throw new Error("Unauthorised, you are not an admin")
     }
     try {
-        const users = await pool.query(`select * from products order by created_at desc limit ${limit}`)
+        const users = await pool.query(`select * from products order by created_at desc limit ${limit} offset ${offset}`)
         return users.rows
 
     } catch (err) {
@@ -45,11 +56,15 @@ async function getAllOrders(_, {}, {
     req
 }) {
     verifyJwt(req)
-    if (req.payload.role_id !== 'admin') {
-        throw new Error("Unauthorised, admin only")
+    const {
+        role_id
+    } = req.payload
+
+    if (!(role_id === "admin" || role_id === "super_admin")) {
+        throw new Error("Unauthorised, you are not an admin")
     }
     try {
-        const result = await pool.query(`select * from orders`)
+        const result = await pool.query(`select * from orders order by created_at desc`)
         return result.rows
     } catch (err) {
         throw new Error(err.message)

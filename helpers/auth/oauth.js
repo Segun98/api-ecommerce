@@ -95,6 +95,10 @@ router.post("/oauth/signup", async (req, res) => {
 
 })
 
+
+module.exports = router
+
+
 // router.get('/auth/google',
 //     passport.authenticate('google', {
 //         scope: ['email', 'profile']
@@ -159,5 +163,3 @@ router.post("/oauth/signup", async (req, res) => {
 //             res.send(err.message)
 //         }
 //     });
-
-module.exports = router

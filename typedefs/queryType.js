@@ -25,7 +25,7 @@ module.exports = gql `
     editUserPage(id:ID!):usersRes
 
     #Query for products
-     products(limit:Int): [productsRes],
+     products(limit:Int,offset:Int): [productsRes],
 
     #featured products 
      featuredProducts(limit:Int): [productsRes],

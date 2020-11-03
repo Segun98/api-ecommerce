@@ -24,7 +24,7 @@ module.exports = gql `
         price:Int!,
         category: String,
         party_category:String,
-        image: String,
+        images: [String],
        available_qty:Int!
         ):customRes
               
@@ -35,7 +35,7 @@ module.exports = gql `
         price:Int!,
         category: String,
         party_category:String,
-        image: String,
+        images: [String],
         available_qty:Int,
         in_stock: String,
         creator_id: String!):customRes
