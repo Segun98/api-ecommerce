@@ -1,15 +1,17 @@
-### Back-End of an e-commerce application
+### Back-End of a "full-featured" e-commerce website
 
-##### Technologies I plan to use:
+> Multi role authentication : Customer, vendor, admin and super admin
+
+> Password Reset flow
+
+> Cron jobs with emails
+
+> Image Upload
+
+##### Tech stack:
 
 > Nodejs/Expressjs
 
-> Postgresql (new)
+> PostgreSQL
 
-> GraphQL
-
-> apollo-server-express (new, primarily use 'express-graphql')
-
-> JWT authentication, multi role authentication
-
-> Google 0auth
+> GraphQL - apollo-server-express
