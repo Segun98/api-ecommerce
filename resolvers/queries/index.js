@@ -24,10 +24,14 @@ const {
 
 //all admin functionality here
 const {
-    getAllOrders,
-    users,
+    getAllOrders
+} = require("./admin/orders")
+const {
     products
-} = require("./admin")
+} = require("./admin/products")
+const {
+    users
+} = require("./admin/users")
 
 module.exports = {
     users,

@@ -1,6 +1,7 @@
+//@ts-check
 const {
     verifyJwt
-} = require("../../helpers/auth/middlewares")
+} = require("../../../helpers/auth/middlewares")
 
 async function completeOrder(_, {
     id
@@ -9,8 +10,11 @@ async function completeOrder(_, {
     req
 }) {
     verifyJwt(req)
+    const {
+        role_id
+    } = req.payload
 
-    if (req.payload.role_id !== 'admin') {
+    if (!(role_id === "admin" || role_id === "super_admin")) {
         throw new Error("Unauthorised, admin only")
     }
     try {
@@ -23,6 +27,7 @@ async function completeOrder(_, {
     }
 }
 
+//This is for disputes
 async function cancelOrderAdmin(_, {
     id
 }, {
@@ -30,14 +35,18 @@ async function cancelOrderAdmin(_, {
     req
 }) {
     verifyJwt(req)
-    if (req.payload.role_id !== 'admin') {
-        throw new Error("Unauthorised, admin only")
+    const {
+        role_id
+    } = req.payload
+
+    if (!(role_id === "admin" || role_id === "super_admin")) {
+        throw new Error("Unauthorised, you are not an admin")
     }
     try {
+        //unaccept order, in case it has been accepted
+        await pool.query(`update orders set accepted = $2 where id = $1`, [id, 'false'])
+        //then cancel
         await pool.query(`update orders set canceled = $2 where id = $1`, [id, 'true'])
-        return {
-            message: "Order has been canceled"
-        }
     } catch (err) {
         throw new Error(err.message)
     }

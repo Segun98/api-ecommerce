@@ -24,7 +24,7 @@ const {
 const {
     completeOrder,
     cancelOrderAdmin
-} = require("./admin")
+} = require("./admin/orders")
 
 module.exports = {
     signUp,

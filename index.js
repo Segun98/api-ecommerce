@@ -19,7 +19,7 @@ require('dotenv').config()
 //endpoints & Cors
 let endpoints = ['http://localhost:3000', 'https://partystore.vercel.app']
 app.use(cors({
-    origin: endpoints[1],
+    origin: endpoints[0],
     credentials: true
 }));
 
