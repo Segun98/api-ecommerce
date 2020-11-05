@@ -1,4 +1,4 @@
-//@ts-check
+// @ts - check
 const express = require('express');
 const app = express();
 const {
@@ -18,8 +18,10 @@ require('dotenv').config()
 
 //endpoints & Cors
 let endpoints = ['http://localhost:3000', 'https://partystore.vercel.app']
+let prod = ['https://adminpartystore.vercel.app', 'https://partystore.vercel.app']
+
 app.use(cors({
-    origin: endpoints[0],
+    origin: prod,
     credentials: true
 }));
 
