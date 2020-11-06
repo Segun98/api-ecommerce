@@ -43,6 +43,8 @@ async function cancelOrderAdmin(_, {
         throw new Error("Unauthorised, you are not an admin")
     }
     try {
+        //"uncomplete" an order, in case it has been completed
+        await pool.query(`update orders set completed = $2 where id = $1`, [id, 'false'])
         //unaccept order, in case it has been accepted
         await pool.query(`update orders set accepted = $2 where id = $1`, [id, 'false'])
         //then cancel
