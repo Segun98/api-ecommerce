@@ -135,6 +135,15 @@ async function acceptOrder(_, {
         throw new Error("Unauthorised")
     }
     try {
+        /* ensures you cant accept a CANCELED order.
+     I spent hours debugging this. Apparently Nodejs treats the accepted value as a BOOLEAN. It is set as a STRING in my database and GRAPHQL type definition
+ */
+        const canceled = await pool.query(`select canceled from orders where id = $1`, [id])
+        canceled.rows.forEach(c => {
+            if (c.canceled) {
+                throw new Error("Can't Accept, Order has been canceled!")
+            }
+        })
         await pool.query(`update orders set accepted = $2 where id = $1`, [id, 'true'])
         return {
             message: "Order has been accepted"
