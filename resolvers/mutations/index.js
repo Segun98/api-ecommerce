@@ -19,7 +19,8 @@ const {
 const {
     createOrder,
     cancelOrder,
-    acceptOrder
+    acceptOrder,
+    updateOrder
 } = require('./orders')
 const {
     completeOrder,
@@ -40,6 +41,7 @@ module.exports = {
     createOrder,
     cancelOrder,
     acceptOrder,
+    updateOrder,
     completeOrder,
     cancelOrderAdmin
 }

@@ -52,6 +52,7 @@ module.exports = gql `
           updateCart(id:ID, quantity:Int):customRes
 
           # ORDERS
+
           createOrder(
           name: String!,
           price: Int!,
@@ -66,7 +67,9 @@ module.exports = gql `
           customer_address: String,
           business_address: String,
           product_id: ID,
-          prod_creator_id: ID):customRes
+          prod_creator_id: ID):idRes
+
+          updateOrder(id:ID!):customRes
 
           cancelOrder(id:ID!):customRes
           acceptOrder(id:ID!):customRes

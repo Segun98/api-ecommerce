@@ -52,6 +52,7 @@ module.exports = gql `
     #Orders
     getCustomerOrders:[orders]
     getVendorOrders(limit:Int):[orders]
+    getOrder(id:ID!):orders
 
     #admin only
     getAllOrders:[orders]

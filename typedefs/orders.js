@@ -12,6 +12,7 @@ type orders{
     quantity: Int,
     delivery_fee: Int,
     subtotal: Int,
+    paid:String,
     description: String,
     accepted:String,
     completed: String,
@@ -26,6 +27,11 @@ type orders{
     product_id: ID,
     customer_id: ID,
     prod_creator_id: ID,
-    created_at: String
+    created_at: String,
+    delivery_date:String
 }
+
+   type idRes{
+          id: ID
+        }
   `;

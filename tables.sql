@@ -64,12 +64,21 @@ CREATE TABLE users
             completed boolean default 'false',
             accepted boolean default 'false',
             canceled boolean default 'false',
-            customer_email VARCHAR(255),
-            vendor_email VARCHAR(255),
-            customer_phone VARCHAR(255),
-            vendor_phone VARCHAR(255),
-            customer_address VARCHAR(255),
-            business_address VARCHAR(255),
+            delivery_date TIMESTAMP
+            with time zone default null,
+            paid boolean default 'false',
+            customer_email VARCHAR
+            (255),
+            vendor_email VARCHAR
+            (255),
+            customer_phone VARCHAR
+            (255),
+            vendor_phone VARCHAR
+            (255),
+            customer_address VARCHAR
+            (255),
+            business_address VARCHAR
+            (255),
             product_id uuid,
             customer_id uuid,
             prod_creator_id uuid,

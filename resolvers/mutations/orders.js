@@ -30,7 +30,7 @@ async function createOrder(_, {
     verifyJwt(req)
 
     try {
-        await pool.query(`insert into orders ( name,
+        const order = await pool.query(`insert into orders ( name,
             price,
             quantity,
             delivery_fee,
@@ -45,7 +45,7 @@ async function createOrder(_, {
             product_id,
             prod_creator_id,
             customer_id
-            ) values($1,$2,$3,$4,$5,$6,$7, $8,$9,$10,$11,$12,$13,$14,$15)`,
+            ) values($1,$2,$3,$4,$5,$6,$7, $8,$9,$10,$11,$12,$13,$14,$15) returning id`,
             [name,
                 price,
                 quantity,
@@ -62,9 +62,8 @@ async function createOrder(_, {
                 prod_creator_id,
                 req.payload.user_id
             ])
-
         return {
-            message: "Your order has been made, manage your orders on the order page"
+            id: order.rows[0].id
         }
     } catch (err) {
         throw new Error(err.message)
@@ -72,6 +71,28 @@ async function createOrder(_, {
 
 
 }
+
+
+//update Order after successful payment
+async function updateOrder(_, {
+    id
+}, {
+    pool,
+    req
+}) {
+    verifyJwt(req)
+    try {
+
+        await pool.query(`update orders set paid=$1 where id=$2`, ['true', id])
+        return {
+            message: "payment successful!"
+        }
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+}
+
 
 //both customer and vendor can cancel an Order
 async function cancelOrder(_, {
@@ -130,5 +151,6 @@ async function acceptOrder(_, {
 module.exports = {
     createOrder,
     cancelOrder,
-    acceptOrder
+    acceptOrder,
+    updateOrder
 }

@@ -18,7 +18,7 @@ async function completeOrder(_, {
         throw new Error("Unauthorised, admin only")
     }
     try {
-        await pool.query(`update orders set completed = $2 where id = $1`, [id, 'true'])
+        await pool.query(`update orders set completed = $2, delivery_date=current_timestamp where id = $1`, [id, 'true'])
         return {
             message: "Order has been completed"
         }

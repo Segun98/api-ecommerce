@@ -19,7 +19,8 @@ const {
 } = require("./cart")
 const {
     getCustomerOrders,
-    getVendorOrders
+    getVendorOrders,
+    getOrder
 } = require("./orders")
 
 //all admin functionality here
@@ -51,5 +52,6 @@ module.exports = {
     getCart,
     getCustomerOrders,
     getVendorOrders,
-    getAllOrders
+    getAllOrders,
+    getOrder
 };
