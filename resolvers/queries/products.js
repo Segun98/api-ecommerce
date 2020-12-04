@@ -43,7 +43,7 @@ async function byCategory(_, {
     pool
 }) {
     try {
-        const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.category = $1 and u.online = $2 order by p.created_at desc limit ${limit} offset ${offset}`, [category, "true"])
+        const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.category = $1 and u.online = $2 and p.available_qty > 0 and p.in_stock = $2 order by p.created_at desc limit ${limit} offset ${offset}`, [category, "true"])
         return products.rows
     } catch (err) {
         throw new Error(err.message)
@@ -58,7 +58,7 @@ async function partyCategory(_, {
     pool
 }) {
     try {
-        const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.party_category = $1 and u.online = $2 order by p.created_at desc limit ${limit} offset ${offset}`, [party_category, "true"])
+        const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.party_category = $1 and u.online = $2 and p.available_qty > 0 and p.in_stock = $2 order by p.created_at desc limit ${limit} offset ${offset}`, [party_category, "true"])
         return products.rows
     } catch (err) {
         throw new Error(err.message)
@@ -86,7 +86,7 @@ async function search(_, {
     pool
 }) {
     try {
-        const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.name ilike '%${query}%' and u.online = $1 order by p.created_at desc limit ${limit} offset ${offset}`, ["true"])
+        const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.name ilike '%${query}%' and u.online = $1 and p.available_qty > 0 and p.in_stock = $1 order by p.created_at desc limit ${limit} offset ${offset}`, ["true"])
         return products.rows
     } catch (err) {
         throw new Error(err.message)
