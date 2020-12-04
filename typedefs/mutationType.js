@@ -41,6 +41,7 @@ module.exports = gql `
         creator_id: String!):customRes
 
         deleteProduct(id:ID!, creator_id: String!):customRes
+        updateQuantity(id:ID! qty_ordered: Int):customRes
 
         #CART Section 
         addToCart(
