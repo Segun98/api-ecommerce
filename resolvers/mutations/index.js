@@ -9,7 +9,8 @@ const {
 const {
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    updateQuantity
 } = require('./products')
 const {
     addToCart,
@@ -34,6 +35,7 @@ module.exports = {
     addProduct,
     updateProduct,
     deleteProduct,
+    updateQuantity,
     setUserStatus,
     addToCart,
     deleteFromCart,

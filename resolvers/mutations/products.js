@@ -118,6 +118,33 @@ async function updateProduct(_, {
     }
 }
 
+//update available quantity in stock for ordered product
+async function updateQuantity(_, {
+    id,
+    qty_ordered
+}, {
+    pool
+}) {
+    try {
+        //available quantity in stock
+        const old_qty = await pool.query(`select available_qty from products where id = $1`, [id])
+        // available qty minus quantity ordered
+        const updated_qty = old_qty.rows[0].available_qty - qty_ordered
+        await pool.query(`update products set available_qty = $2 where id = $1`, [id, updated_qty])
+        //set product as out of stock if quantity is zero
+        if (updated_qty === 0) {
+            await pool.query(`update products set in_stock = $2 where id = $1`, [id, 'false'])
+        }
+        return {
+            message: "Quantity updated"
+        }
+
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+}
+
 
 async function deleteProduct(_, {
     id,
@@ -143,8 +170,11 @@ async function deleteProduct(_, {
 
 }
 
+
+
 module.exports = {
     addProduct,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    updateQuantity
 }
