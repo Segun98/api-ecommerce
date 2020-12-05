@@ -13,6 +13,7 @@ const {
     multiple
 } = require('./helpers/dataloader')
 const compression = require('compression')
+const helmet = require("helmet");
 require('dotenv').config()
 // require("./helpers/auth/passport")
 
@@ -31,6 +32,8 @@ const auth = require("./helpers/auth/auth")
 const upload = require("./helpers/image-upload/upload")
 const email = require("./helpers/emails")
 
+//secure app by setting http headers
+app.use(helmet())
 // compress all responses
 app.use(compression());
 app.use(express.json())
