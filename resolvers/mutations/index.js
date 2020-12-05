@@ -27,6 +27,9 @@ const {
     completeOrder,
     cancelOrderAdmin
 } = require("./admin/orders")
+const {
+    updateCompleted
+} = require("./admin/users")
 
 module.exports = {
     signUp,
@@ -45,5 +48,6 @@ module.exports = {
     acceptOrder,
     updateOrder,
     completeOrder,
-    cancelOrderAdmin
+    cancelOrderAdmin,
+    updateCompleted
 }

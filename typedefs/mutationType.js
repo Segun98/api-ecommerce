@@ -78,6 +78,8 @@ module.exports = gql `
           #Admin
           completeOrder(id:ID!):customRes,
           cancelOrderAdmin(id:ID!):customRes
+          #add completed orders number to users table
+          updateCompleted(id:ID!):customRes
     }
   
   `;

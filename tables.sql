@@ -24,6 +24,7 @@ CREATE TABLE users
     business_bio Text default null,
     customer_address Text default null,
     featured boolean default 'false',
+    completed_qty int default 0,
     created_at TIMESTAMP
     with time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
 

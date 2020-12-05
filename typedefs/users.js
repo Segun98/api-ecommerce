@@ -20,7 +20,8 @@ type users{
     business_image: String,
     business_bio:String,
     customer_address: String,
-    featured:String
+    featured:String,
+    completed_qty:Int
   }
 
   # Response objects 
@@ -42,6 +43,7 @@ type users{
     business_bio:String,
     customer_address: String,
     featured:String,
+    completed_qty:Int
     jwt_user_id: String
     #nested resolver
     usersProducts:[productsRes]
