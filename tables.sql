@@ -44,6 +44,7 @@ CREATE TABLE users
         featured boolean DEFAULT 'false',
         in_stock boolean DEFAULT 'true',
         available_qty int NOT NULL DEFAULT 1,
+        purchase_frequency int default 0,
         creator_id uuid references users
         (id) ON
         DELETE CASCADE ON
@@ -68,6 +69,9 @@ CREATE TABLE users
             delivery_date TIMESTAMP
             with time zone default null,
             paid boolean default 'false',
+            canceled_by user_role,
+            cancel_reason text,
+            refund boolean default 'false',
             customer_email VARCHAR
             (255),
             vendor_email VARCHAR

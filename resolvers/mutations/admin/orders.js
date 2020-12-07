@@ -48,7 +48,7 @@ async function cancelOrderAdmin(_, {
         //unaccept order, in case it has been accepted
         await pool.query(`update orders set accepted = $2 where id = $1`, [id, 'false'])
         //then cancel
-        await pool.query(`update orders set canceled = $2 where id = $1`, [id, 'true'])
+        await pool.query(`update orders set canceled = $2 canceled_by = $3 where id = $1`, [id, 'true', role_id])
     } catch (err) {
         throw new Error(err.message)
     }

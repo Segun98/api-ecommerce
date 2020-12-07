@@ -72,7 +72,7 @@ module.exports = gql `
 
           updateOrder(id:ID!):customRes
 
-          cancelOrder(id:ID!):customRes
+          cancelOrder(id:ID!, cancel_reason:String):customRes
           acceptOrder(id:ID!):customRes
 
           #Admin
