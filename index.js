@@ -1,6 +1,7 @@
 // @ts - check
 const express = require('express');
 const app = express();
+require('dotenv').config()
 const {
     ApolloServer
 } = require('apollo-server-express');
@@ -14,7 +15,6 @@ const {
 } = require('./helpers/dataloader')
 const compression = require('compression')
 const helmet = require("helmet");
-require('dotenv').config()
 // require("./helpers/auth/passport")
 
 //endpoints & Cors
