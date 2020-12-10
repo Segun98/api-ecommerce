@@ -183,7 +183,7 @@ async function welcomeCustomer(name, email) {
         </tr>
       </tbody></table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="bA2FfEE6abadx6yKoMr3F9">
         <tbody><tr>
-          <td style="background-color:#ffffff; padding:10px 40px 50px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="#ffffff"><div><div style="font-family: inherit; text-align: center"><span style="font-family: verdana,geneva,sans-serif">Thanks for signing up! We couldn't be more thrilled to have you as a customer. We hope you enjoy a modern shopping experience with us.</div><div></div></div></td>
+          <td style="background-color:#ffffff; padding:10px 40px 50px 40px; line-height:22px; text-align:inherit;" height="100%" valign="top" bgcolor="#ffffff"><div><div style="font-family: inherit; text-align: center"><span style="font-family: verdana,geneva,sans-serif">Hello ${name}, Thanks for signing up! We couldn't be more thrilled to have you as a customer. We hope you enjoy a modern shopping experience with us.</div><div></div></div></td>
         </tr>
       </tbody></table><table class="module" role="module" data-type="spacer" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="dnNq8YR2nu8DNzse1aZUWt">
         <tbody><tr>
