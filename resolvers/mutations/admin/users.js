@@ -25,6 +25,30 @@ async function updateCompleted(_, {
 }
 
 
+// To set pending to true after reviewing a vendor's profile or false. also set them offline
+async function setUserStatus(_, {
+    id,
+    pending
+}, {
+    pool,
+    req
+}) {
+    verifyJwt(req)
+    //set online to 'true' when setting pending as 'false' and vice versa
+    let online = pending === "true" ? "false" : "true"
+
+    try {
+        await pool.query(`update users set pending = $2, online = $3 where id = $1`, [id, pending, online])
+
+        return {
+            message: "User successfully updated"
+        }
+    } catch (err) {
+        throw new Error(err.message)
+    }
+}
+
 module.exports = {
-    updateCompleted
+    updateCompleted,
+    setUserStatus
 }

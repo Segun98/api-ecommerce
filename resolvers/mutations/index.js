@@ -3,8 +3,7 @@ const {
     logIn
 } = require("./signup-login")
 const {
-    updateProfile,
-    setUserStatus
+    updateProfile
 } = require("./updateProfile")
 const {
     addProduct,
@@ -28,7 +27,8 @@ const {
     cancelOrderAdmin
 } = require("./admin/orders")
 const {
-    updateCompleted
+    updateCompleted,
+    setUserStatus
 } = require("./admin/users")
 
 module.exports = {
@@ -39,7 +39,6 @@ module.exports = {
     updateProduct,
     deleteProduct,
     updateQuantity,
-    setUserStatus,
     addToCart,
     deleteFromCart,
     updateCart,
@@ -49,5 +48,6 @@ module.exports = {
     updateOrder,
     completeOrder,
     cancelOrderAdmin,
-    updateCompleted
+    updateCompleted,
+    setUserStatus
 }

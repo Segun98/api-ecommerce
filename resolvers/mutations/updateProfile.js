@@ -40,34 +40,8 @@ async function updateProfile(_, {
     }
 }
 
-//admin only. To set pending to true after reviewing a vendor's profile
-async function setUserStatus(_, {
-    id,
-    pending
-}, {
-    pool,
-    req
-}) {
-    verifyJwt(req)
 
-    if (req.payload.role_id !== 'admin') {
-        throw new Error("Unauthorised")
-    }
-
-    try {
-        await pool.query(`update users set pending = $2
-          where id = $1`,
-            [id, pending])
-
-        return {
-            message: "User successfully updated"
-        }
-    } catch (err) {
-        throw new Error(err.message)
-    }
-}
 
 module.exports = {
-    updateProfile,
-    setUserStatus
+    updateProfile
 }
