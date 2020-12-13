@@ -15,14 +15,11 @@ const {
 } = require('./helpers/dataloader')
 const compression = require('compression')
 const helmet = require("helmet");
-
-//endpoints & Cors
-let local = ['http://localhost:3000', 'http://localhost:5000']
-let prod = ['https://adminpartystore.vercel.app', 'https://partystore.vercel.app']
+const host = require("./environment")
 
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? prod : local,
+    origin: host,
     credentials: true
 }));
 
