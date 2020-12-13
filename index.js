@@ -15,14 +15,14 @@ const {
 } = require('./helpers/dataloader')
 const compression = require('compression')
 const helmet = require("helmet");
-// require("./helpers/auth/passport")
 
 //endpoints & Cors
 let local = ['http://localhost:3000', 'http://localhost:5000']
 let prod = ['https://adminpartystore.vercel.app', 'https://partystore.vercel.app']
 
+
 app.use(cors({
-    origin: prod,
+    origin: process.env.NODE_ENV === 'production' ? prod : local,
     credentials: true
 }));
 
@@ -41,8 +41,6 @@ app.use(express.urlencoded({
     extended: false
 }))
 
-
-// app.use(passport.initialize())
 
 //refresh-token and logout routes
 app.use("/api", auth)
@@ -71,11 +69,7 @@ const server = new ApolloServer({
 
 server.applyMiddleware({
     app,
-    cors: false,
-    // cors: {
-    //     origin: endpoints[1],
-    //     credentials: true
-    // }
+    cors: false
 });
 
 const PORT = process.env.PORT || 4000
