@@ -52,7 +52,8 @@ type users{
   type loginRes  {
     refreshtoken:String, #should be sent over an http only cookie for a production app
     accesstoken:String,
-    role:String
+    role:String,
+    pending:String
   }
 
 #used globally

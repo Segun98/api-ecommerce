@@ -129,7 +129,8 @@ async function logIn(_, {
         return {
             refreshtoken: createRefreshToken(users),
             accesstoken: token,
-            role: users.rows[0].role
+            role: users.rows[0].role,
+            pending: users.rows[0].pending
         }
 
     } catch (err) {
