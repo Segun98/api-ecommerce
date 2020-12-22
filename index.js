@@ -17,7 +17,6 @@ const compression = require('compression')
 const helmet = require("helmet");
 const host = require("./environment")
 
-
 app.use(cors({
     origin: host,
     credentials: true
