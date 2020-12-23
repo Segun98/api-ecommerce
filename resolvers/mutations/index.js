@@ -1,3 +1,4 @@
+//@ts-check
 const {
     signUp,
     logIn
@@ -5,49 +6,19 @@ const {
 const {
     updateProfile
 } = require("./updateProfile")
-const {
-    addProduct,
-    updateProduct,
-    deleteProduct,
-    updateQuantity
-} = require('./products')
-const {
-    addToCart,
-    deleteFromCart,
-    updateCart
-} = require('./cart')
-const {
-    createOrder,
-    cancelOrder,
-    acceptOrder,
-    updateOrder
-} = require('./orders')
-const {
-    completeOrder,
-    cancelOrderAdmin
-} = require("./admin/orders")
-const {
-    updateCompleted,
-    setUserStatus
-} = require("./admin/users")
+const productsMutations = require('./products')
+const cartMutations = require('./cart')
+const ordersMutations = require('./orders')
+const adminOrdersMutations = require("./admin/orders")
+const adminUsersMutations = require("./admin/users")
 
 module.exports = {
     signUp,
     logIn,
     updateProfile,
-    addProduct,
-    updateProduct,
-    deleteProduct,
-    updateQuantity,
-    addToCart,
-    deleteFromCart,
-    updateCart,
-    createOrder,
-    cancelOrder,
-    acceptOrder,
-    updateOrder,
-    completeOrder,
-    cancelOrderAdmin,
-    updateCompleted,
-    setUserStatus
+    ...productsMutations,
+    ...cartMutations,
+    ...ordersMutations,
+    ...adminOrdersMutations,
+    ...adminUsersMutations
 }
