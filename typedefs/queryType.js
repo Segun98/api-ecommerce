@@ -34,7 +34,7 @@ module.exports = gql `
     product(name_slug:String!):productsRes,
 
     #search products
-    search(query:String! limit:Int offset:Int):[productsRes]
+    search(query:String! limit:Int offset:Int sort:String):[productsRes]
 
     #by category
     byCategory(category:String! limit:Int offset:Int): [productsRes]

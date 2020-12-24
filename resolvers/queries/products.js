@@ -81,14 +81,27 @@ module.exports = {
     async search(_, {
         query,
         limit,
-        offset
+        offset,
+        sort
     }, {
         pool
     }) {
+
+        /* is this how it's done in large apps? lol.
+         dynamically add sort to the sql query */
+
+        let sortQuery = ""
+        if (sort === "low") {
+            sortQuery = `p.price asc,`
+        } else if (sort === "high") {
+            sortQuery = `p.price desc,`
+        }
+
         try {
-            const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.name ilike '%${query}%' and u.online = $1 and p.available_qty > 0 and p.in_stock = $1 order by u.completed_qty desc, p.price desc limit ${limit} offset ${offset}`, ["true"])
+            const products = await pool.query(`select p.id, p.name, p.name_slug, p.price, p.images from products p inner join users u on p.creator_id = u.id where p.name ilike '%${query}%' and u.online = $1 and p.available_qty > 0 and p.in_stock = $1 order by ${sortQuery} u.completed_qty desc limit ${limit} offset ${offset}`, ["true"])
             return products.rows
         } catch (err) {
+            console.log(err.message);
             throw new Error(err.message)
         }
     }
