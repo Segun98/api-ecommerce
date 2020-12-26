@@ -15,7 +15,7 @@ const {
 } = require('./helpers/dataloader')
 const compression = require('compression')
 const helmet = require("helmet");
-const host = require("./environment")
+const host = require("./bin/environment")
 
 app.use(cors({
     origin: host,
@@ -23,10 +23,10 @@ app.use(cors({
 }));
 
 //REST ROUTES
-const oAuth = require("./helpers/auth/oauth")
-const auth = require("./helpers/auth/auth")
+const oAuth = require("./routes/oauth")
+const auth = require("./routes/auth")
+const email = require("./routes/emails")
 const upload = require("./helpers/image-upload/upload")
-const email = require("./helpers/emails")
 
 //secure app by setting http headers
 app.use(helmet())

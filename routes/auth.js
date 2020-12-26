@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken")
 const router = require("express").Router()
 const cookieParser = require('cookie-parser')
-const pool = require("../../db")
+const pool = require("../db")
 const {
     createRefreshToken,
     createToken
-} = require("./create-tokens")
+} = require("../helpers/auth/create-tokens")
 
 //refresh token before access token expires
 router.post("/refreshtoken", cookieParser(), async (req, res) => {

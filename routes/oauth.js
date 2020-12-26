@@ -1,13 +1,13 @@
 //@ts-check
 const router = require("express").Router()
-const pool = require("../../db")
+const pool = require("../db")
 const {
     createRefreshToken,
     createToken
-} = require("./create-tokens")
+} = require("../helpers/auth/create-tokens")
 const {
     welcomeCustomer
-} = require("../emails/email_functions");
+} = require("../helpers/emails/email_functions");
 const bcrypt = require("bcryptjs")
 
 

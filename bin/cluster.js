@@ -28,7 +28,7 @@ if (cluster.isMaster) {
 } else {
     // This is not the master process, so we spawn the express server.
     //   runExpressServer();
-    require("./index")
+    require("../index")
 }
 
 // Cluster API has a variety of events.

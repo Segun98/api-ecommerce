@@ -8,10 +8,10 @@
     "npm": "6.13.7"
   },
   "scripts": {
-    "start": "node cluster.js",
+    "start": "node ./bin/cluster.js",
     "dev": "nodemon index",
-    "devcluster": "nodemon cluster.js",
-    "startcluster": "node cluster.js",
+    "devcluster": "nodemon ./bin/cluster.js",
+    "startcluster": "node ./bin/cluster.js",
     "pm2": "pm2 start /index.js -i max",
     "stoppm2": "pm2 stop /index.js --watch",
     "listPm2": "pm2 ls",

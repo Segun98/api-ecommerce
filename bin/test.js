@@ -1,4 +1,4 @@
-const pool = require("./db")
+const pool = require("../db")
 //reduce product quantity when a customer orders a product
 async function updateQuantity() {
     try {
