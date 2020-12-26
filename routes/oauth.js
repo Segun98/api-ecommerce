@@ -65,7 +65,7 @@ router.post("/oauth/login", async (req, res) => {
 
             const token = createToken(user) //returns access token
 
-            return res.send({
+            res.send({
                 refreshtoken: createRefreshToken(user),
                 accesstoken: token,
                 role: user.rows[0].role
