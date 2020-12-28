@@ -7,7 +7,6 @@ module.exports = gql `
   #  ALL mutations 
     type Mutation {
 
-      setUserStatus(pending:String!,id:ID!):customRes
 
       signUp(first_name: String!, last_name: String!, email: String!, password: String!, confirm_password: String!, phone:String, role: String!, pending: String!, business_name: String, business_name_slug: String, business_address: String, business_image: String, business_bio: String, customer_address: String):customRes
       
@@ -76,10 +75,13 @@ module.exports = gql `
           acceptOrder(id:ID!):customRes
 
           #Admin
+          setUserStatus(pending:String!,id:ID!):customRes
           completeOrder(id:ID!):customRes,
           cancelOrderAdmin(id:ID!):customRes
-          #add completed orders number to users table
           updateCompleted(id:ID!):customRes
+          #set a product as featured
+          setFeatured(id:ID! featured:String!):customRes
+          deleteProductAdmin(id:ID!):customRes
     }
   
   `;

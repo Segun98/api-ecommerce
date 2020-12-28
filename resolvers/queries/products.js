@@ -24,7 +24,7 @@ module.exports = {
         try {
             // const start = Date.now()
             // console.time('Query time');
-            const users = await pool.query(`select * from products where featured = $1 order by created_at desc limit ${limit}`, ['true'])
+            const users = await pool.query(`SELECT p.id, p.name, p.name_slug, p.price, p.images from products p INNER JOIN users u on p.creator_id= u.id where p.featured = $1 and u.online = $1 and p.available_qty > 0 and p.in_stock = $1 ORDER BY p.created_at desc limit ${limit}`, ['true'])
             // console.timeEnd('Query time');
             // console.log(Date.now() - start);
             return users.rows

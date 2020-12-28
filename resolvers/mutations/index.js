@@ -11,6 +11,7 @@ const cartMutations = require('./cart')
 const ordersMutations = require('./orders')
 const adminOrdersMutations = require("./admin/orders")
 const adminUsersMutations = require("./admin/users")
+const adminProductsMutations = require("./admin/products")
 
 module.exports = {
     signUp,
@@ -20,5 +21,6 @@ module.exports = {
     ...cartMutations,
     ...ordersMutations,
     ...adminOrdersMutations,
-    ...adminUsersMutations
+    ...adminUsersMutations,
+    ...adminProductsMutations
 }
