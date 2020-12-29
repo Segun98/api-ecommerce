@@ -24,9 +24,6 @@ module.exports = gql `
      #gets a user but for edit
     editUserPage(id:ID!):usersRes
 
-    #Query for products
-     products(limit:Int,offset:Int): [productsRes],
-
     #featured products 
      featuredProducts(limit:Int): [productsRes],
 
@@ -56,7 +53,8 @@ module.exports = gql `
 
     #admin only
     getAllOrders:[orders]
-
+    #Query for products
+    products(limit:Int): [productsRes],
 
 
    }

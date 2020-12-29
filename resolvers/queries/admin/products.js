@@ -6,8 +6,7 @@ const {
 
 module.exports = {
     async products(_, {
-        limit,
-        offset
+        limit
     }, {
         pool,
         req
@@ -21,7 +20,7 @@ module.exports = {
             throw new Error("Unauthorised, you are not an admin")
         }
         try {
-            const users = await pool.query(`select * from products order by created_at desc limit ${limit} offset ${offset}`)
+            const users = await pool.query(`select * from products order by created_at desc limit ${limit}`)
             return users.rows
 
         } catch (err) {
