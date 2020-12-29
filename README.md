@@ -8,7 +8,9 @@
 
 > Cron jobs with emails
 
-> Image Upload
+> Image Upload with Multer and Cloudinary
+
+> Bcrypt for passwords, Dataloader for N+1 GraphQL problem, SendGrid for emails, joi for validation, compression etc.
 
 ##### Tech stack:
 
