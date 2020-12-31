@@ -23,7 +23,7 @@ router.post("/sendmails", async (req, res) => {
         await sgMail.send(content)
         return res.status(200).send('Message sent successfully.')
     } catch (error) {
-        console.log('ERROR', error)
+        // console.log('ERROR', error.message)
         return res.status(400).send('Message not sent.')
     }
 
@@ -48,7 +48,7 @@ router.post("/contact", async (req, res) => {
         await sgMail.send(content)
         res.status(200).send('Message sent successfully.')
     } catch (error) {
-        console.log('ERROR', error)
+        // console.log('ERROR', error.message)
         res.status(400).send('Message not sent.')
     }
 });
