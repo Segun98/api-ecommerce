@@ -57,10 +57,10 @@ module.exports.multiple = class multiple {
                 const res = await pool.query(`select * from ${table} where ${column} in (${fin}) order by created_at desc`, keys)
 
                 const lookup = res.rows.reduce((acc, row) => {
-                    if (!(row.creator_id in acc)) {
-                        acc[row.creator_id] = []
+                    if (!(row[column] in acc)) {
+                        acc[row[column]] = []
                     }
-                    acc[row.creator_id].push(row)
+                    acc[row[column]].push(row)
                     return acc;
                 }, {})
 
