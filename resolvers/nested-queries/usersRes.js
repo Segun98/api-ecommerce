@@ -17,7 +17,23 @@ async function usersProducts(parent, {}, {
     }
 
 }
+async function customerOrders(parent, {}, {
+    loaderTwo
+}) {
+    try {
+        if (!parent.id) {
+            throw new Error("404")
+        }
+        let orders = await loaderTwo.load("orders", "customer_id", parent.id)
+        return orders
+
+    } catch (err) {
+        throw new Error(err.message)
+    }
+
+}
 
 module.exports = {
-    usersProducts
+    usersProducts,
+    customerOrders
 }

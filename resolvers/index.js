@@ -5,7 +5,8 @@ const {
     related
 } = require("./nested-queries/productsRes")
 const {
-    usersProducts
+    usersProducts,
+    customerOrders
 } = require("./nested-queries/usersRes")
 
 module.exports = {
@@ -21,7 +22,8 @@ module.exports = {
     //userRes is the name of a type in /typedefs/users.js
     usersRes: {
         //returns products by a user
-        usersProducts
+        usersProducts,
+        customerOrders
     },
 
     //productsRes is the name of a type in /typedefs/products.js

@@ -47,6 +47,7 @@ type users{
     jwt_user_id: String
     #nested resolver
     usersProducts:[productsRes]
+    customerOrders:[orders]
   }
 
   type loginRes  {
