@@ -82,6 +82,8 @@ module.exports = gql `
           #set a product as featured
           setFeatured(id:ID! featured:String!):customRes
           deleteProductAdmin(id:ID!):customRes
+          #toggle in stock/out of stock
+          setOutOfStock(id:ID! in_stock:String!):customRes
     }
   
   `;

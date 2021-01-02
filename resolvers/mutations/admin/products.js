@@ -58,5 +58,33 @@ module.exports = {
             throw new Error(err.message)
         }
 
+    },
+
+    async setOutOfStock(_, {
+        id,
+        in_stock
+    }, {
+        pool,
+        req
+    }) {
+        verifyJwt(req)
+        const {
+            role_id
+        } = req.payload
+
+        if (!(role_id === "admin" || role_id === "super_admin")) {
+            throw new Error("Unauthorised, you are not an admin")
+        }
+        let instock = in_stock === "true" ? "false" : "true"
+
+        try {
+            await pool.query(`update products set in_stock = $2 where id = $1`, [id, instock])
+
+            return {
+                message: "Item stock status updated!"
+            }
+        } catch (err) {
+            throw new Error(err.message)
+        }
     }
 }
