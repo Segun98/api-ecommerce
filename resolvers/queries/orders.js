@@ -13,7 +13,7 @@ module.exports = {
             throw new Error("Unauthorised")
         }
         try {
-            const result = await pool.query(`select * from orders where customer_id = $1 and paid = $2 order by created_at desc`, [req.payload.user_id, 'true'])
+            const result = await pool.query(`SELECT * from orders o INNER JOIN order_status os ON os.order_id = o.order_id WHERE o.customer_id = $1 and os.paid = $2 ORDER BY o.created_at DESC`, [req.payload.user_id, 'true'])
             return result.rows
         } catch (err) {
             throw new Error(err.message)
@@ -40,15 +40,15 @@ module.exports = {
 
     //pay page for customer
     async getOrder(_, {
-        id
+        order_id
     }, {
         pool,
         req
     }) {
         verifyJwt(req)
         try {
-            const order = await pool.query(`select * from orders where id = $1`, [id])
-            return order.rows[0]
+            const order = await pool.query(`select * from orders where order_id = $1`, [order_id])
+            return order.rows
 
         } catch (err) {
             throw new Error(err.message)
