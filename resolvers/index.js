@@ -51,6 +51,16 @@ module.exports = {
         }) {
             return loaderOne.load("products", "id", parent.product_id)
         }
+    },
+    orders: {
+        async orderStatus(parent, {}, {
+            loaderOne,
+            // pool
+        }) {
+            // const result = await pool.query(`select * from order_status where order_id =$1`, [parent.order_id])
+            // return result.rows[0]
+            return loaderOne.load("order_status", "order_id", parent.order_id)
+        }
     }
 
 }
