@@ -3,17 +3,17 @@ const {
     verifyJwt
 } = require("../../helpers/auth/middlewares")
 
-/**
-@param{any}_,
-@param{{name:string, price:number, quantity:number, delivery_fee:number, subtotal:number, request:string,customer_email:string, vendor_email:string, customer_phone:string, vendor_phone:string, customer_address:string,business_address:string, product_id:string, prod_creator_id:string}} obj
-*/
 
 module.exports = {
+    /**
+    @param{any}_,
+    @param{{order_id:string,name: String,price: number, quantity: number,subtotal: number,request:String,customer_email: String,vendor_email: String,customer_phone: String,vendor_phone: String,customer_address: String,business_address: String,product_id: string,customer_id: string,prod_creator_id: string}} obj
+    */
     async createOrder(_, {
+        order_id,
         name,
         price,
         quantity,
-        delivery_fee,
         subtotal,
         request,
         customer_email,
@@ -31,10 +31,11 @@ module.exports = {
         verifyJwt(req)
 
         try {
-            const order = await pool.query(`insert into orders ( name,
+            const order = await pool.query(`insert into orders (
+                order_id,
+                 name,
             price,
             quantity,
-            delivery_fee,
             subtotal,
             request,
             customer_email,
@@ -46,11 +47,11 @@ module.exports = {
             product_id,
             prod_creator_id,
             customer_id
-            ) values($1,$2,$3,$4,$5,$6,$7, $8,$9,$10,$11,$12,$13,$14,$15) returning id`,
-                [name,
+            ) values($1,$2,$3,$4,$5,$6,$7, $8,$9,$10,$11,$12,$13,$14,$15)`,
+                [order_id,
+                    name,
                     price,
                     quantity,
-                    delivery_fee,
                     subtotal,
                     request,
                     customer_email,
@@ -64,7 +65,7 @@ module.exports = {
                     req.payload.user_id
                 ])
             return {
-                id: order.rows[0].id
+                message: "Order has been placed!"
             }
         } catch (err) {
             throw new Error(err.message)
@@ -74,9 +75,12 @@ module.exports = {
     },
 
 
-    //update Order after successful payment
+    //create order_status table after successful payment for order
     async updateOrder(_, {
-        id
+        order_id,
+        transaction_id,
+        delivery_fee,
+        total_price
     }, {
         pool,
         req
@@ -84,7 +88,7 @@ module.exports = {
         verifyJwt(req)
         try {
 
-            await pool.query(`update orders set paid=$1 where id=$2`, ['true', id])
+            await pool.query(`insert into order_status (order_id, transaction_id, delivery_fee, total_price) values($1,$2,$3,$4)`, [order_id, transaction_id, delivery_fee, total_price])
             return {
                 message: "payment successful!"
             }
@@ -95,67 +99,43 @@ module.exports = {
     },
 
 
-    //both customer and vendor can cancel an Order
+    //by customer
     async cancelOrder(_, {
-        id,
-        cancel_reason
+        order_id,
+        canceled_reason
     }, {
         pool,
         req
     }) {
         verifyJwt(req)
-        const {
-            role_id
-        } = req.payload
-        /* ensures you cant cancel an ACCEPTED order.
-     I spent hours debugging this. Apparently Nodejs treats the accepted value as a BOOLEAN. It is set as a STRING in my database and GRAPHQL type definition
+
+        /* ensures you cant cancel an order on its way.
+     I spent hours debugging this. Apparently Nodejs treats the in_transit value as a BOOLEAN. It is set as a STRING in my database and GRAPHQL type definition
  */
-        const accepted = await pool.query(`select accepted from orders where id = $1`, [id])
-        accepted.rows.forEach(a => {
-            if (a.accepted) {
+        const in_transit = await pool.query(`select in_transit from order_status where order_id = $1`, [order_id])
+        in_transit.rows.forEach(a => {
+            if (a.in_transit) {
                 throw new Error("Can't Cancel, Your Order is On its Way!")
             }
         })
 
+        const {
+            role_id
+        } = req.payload
+
+        if (role_id !== "customer") {
+            throw new Error("Unauthorised, you are not a customer")
+        }
         try {
-            await pool.query(`update orders set canceled = $2, canceled_by = $3, cancel_reason = $4 where id = $1`, [id, 'true', role_id, cancel_reason])
+            await pool.query(`update order_status set canceled=$2, canceled_reason= $3 where order_id = $1`, [order_id, 'true', canceled_reason])
+
             return {
-                message: "Order has been canceled"
+                message: "Order successfully canceled"
             }
         } catch (err) {
             throw new Error(err.message)
         }
     },
 
-    //vendor only
-    async acceptOrder(_, {
-        id
-    }, {
-        pool,
-        req
-    }) {
-        verifyJwt(req)
-        if (req.payload.role_id !== "vendor") {
-            throw new Error("Unauthorised")
-        }
-        try {
-            /* ensures you cant accept a CANCELED order.
-     I spent hours debugging this. Apparently Nodejs treats the accepted value as a BOOLEAN. It is set as a STRING in my database and GRAPHQL type definition
- */
-            const canceled = await pool.query(`select canceled from orders where id = $1`, [id])
-            canceled.rows.forEach(c => {
-                if (c.canceled) {
-                    throw new Error("Can't Accept, Order has been canceled!")
-                }
-            })
-            await pool.query(`update orders set accepted = $2 where id = $1`, [id, 'true'])
-            return {
-                message: "Order has been accepted"
-            }
-        } catch (err) {
-            throw new Error(err.message)
-        }
-
-    }
 
 }
