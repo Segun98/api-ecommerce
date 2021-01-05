@@ -89,6 +89,27 @@ module.exports = {
         } catch (err) {
             throw new Error(err.message)
         }
-    }
+    },
+
+    //After successfull payment
+    async deleteAllFromCart(_, {}, {
+        pool,
+        req
+    }) {
+        verifyJwt(req)
+
+        try {
+
+            await pool.query(`delete from cart where customer_id = $1`, [req.payload.user_id])
+
+            return {
+                message: "Cart cleared!"
+            }
+
+        } catch (err) {
+            throw new Error(err.message)
+        }
+
+    },
 
 }
