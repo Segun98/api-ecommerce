@@ -6,7 +6,7 @@ const {
 
 module.exports = {
     async completeOrder(_, {
-        id
+        order_id
     }, {
         pool,
         req
@@ -20,7 +20,7 @@ module.exports = {
             throw new Error("Unauthorised, admin only")
         }
         try {
-            await pool.query(`update orders set completed = $2, delivery_date=current_timestamp where id = $1`, [id, 'true'])
+            await pool.query(`update order_status set delivered = $2, delivery_date=current_timestamp, in_transit=$3 where order_id = $1`, [order_id, 'true', 'false', ])
             return {
                 message: "Order has been completed"
             }
@@ -31,7 +31,8 @@ module.exports = {
 
     //This is for disputes
     async cancelOrderAdmin(_, {
-        id
+        order_id,
+        canceled_reason
     }, {
         pool,
         req
@@ -46,11 +47,7 @@ module.exports = {
         }
         try {
             //"uncomplete" an order, in case it has been completed
-            await pool.query(`update orders set completed = $2 where id = $1`, [id, 'false'])
-            //unaccept order, in case it has been accepted
-            await pool.query(`update orders set accepted = $2 where id = $1`, [id, 'false'])
-            //then cancel
-            await pool.query(`update orders set canceled = $2 canceled_by = $3 where id = $1`, [id, 'true', role_id])
+            await pool.query(`update order_status set delivered = $2, canceled=$3, canceled_reason= $4 where order_id = $1`, [order_id, 'false', 'true', canceled_reason])
         } catch (err) {
             throw new Error(err.message)
         }
