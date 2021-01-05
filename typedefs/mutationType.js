@@ -48,16 +48,16 @@ module.exports = gql `
           prod_creator_id: ID!, quantity:Int):customRes
 
           deleteFromCart(id:ID):customRes
-
+          deleteAllFromCart:customRes
           updateCart(id:ID, quantity:Int):customRes
 
           # ORDERS
 
           createOrder(
+          order_id:ID!
           name: String!,
           price: Int!,
-          quantity: Int!,
-          delivery_fee: Int,
+          quantity: Int,
           subtotal: Int!,
           request: String,
           customer_email: String,
@@ -66,18 +66,18 @@ module.exports = gql `
           vendor_phone: String,
           customer_address: String,
           business_address: String,
-          product_id: ID,
-          prod_creator_id: ID):idRes
+          product_id: ID!,
+          prod_creator_id: ID!
+          ):customRes
 
-          updateOrder(id:ID!):customRes
+          updateOrder(order_id:ID!, transaction_id:ID!, delivery_fee:Int, total_price:Int!):customRes
 
-          cancelOrder(id:ID!, cancel_reason:String):customRes
-          acceptOrder(id:ID!):customRes
+          cancelOrder(order_id:ID!,canceled_reason:String):customRes
 
           #Admin
           setUserStatus(pending:String!,id:ID!):customRes
-          completeOrder(id:ID!):customRes,
-          cancelOrderAdmin(id:ID!):customRes
+          completeOrder(order_id:ID!):customRes,
+          cancelOrderAdmin(order_id:ID!,canceled_reason:String):customRes
           updateCompleted(id:ID!):customRes
           #set a product as featured
           setFeatured(id:ID! featured:String!):customRes
