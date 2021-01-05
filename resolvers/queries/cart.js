@@ -24,23 +24,4 @@ module.exports = {
         }
     },
 
-
-    //gets a single cart item that was clicked for checkout. this is order page
-    async getCart(_, {
-        id
-    }, {
-        pool,
-        req
-    }) {
-        try {
-            verifyJwt(req)
-
-            const cart = await pool.query(`select * from cart where id = $1`, [id])
-            return cart.rows[0]
-
-        } catch (err) {
-            throw new Error(err.message)
-        }
-    }
-
 }
