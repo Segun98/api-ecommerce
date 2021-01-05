@@ -25,7 +25,7 @@ module.exports.single = class single {
                 //     lookup[u.id] = u
                 // })
                 const lookup = res.rows.reduce((acc, row) => {
-                    acc[row.id] = row;
+                    acc[row[column]] = row;
                     return acc;
                 }, {})
 
