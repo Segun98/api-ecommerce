@@ -44,7 +44,7 @@ CREATE TABLE users
         featured boolean DEFAULT 'false',
         in_stock boolean DEFAULT 'true',
         available_qty int NOT NULL DEFAULT 1,
-        purchase_frequency int default 0,
+        -- purchase_frequency int default 0,
         creator_id uuid references users
         (id) ON
         DELETE CASCADE ON
@@ -53,25 +53,19 @@ CREATE TABLE users
         with time zone DEFAULT CURRENT_TIMESTAMP
 )
 
+
+-- alter table orders drop column delivery_fee, order_id, completed, accepted, canceled, delivery_date, paid, canceled_by, cancel_reason, refund
+-- alter table orders add column order_id text not null
+
         CREATE TABLE orders
         (
-            id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
-            order_id serial unique not null,
+            -- id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
+           order_id text not null,
             name VARCHAR(255) NOT NULL,
             price int NOT NULL,
             quantity int,
-            delivery_fee int,
             subtotal int,
             request Text,
-            completed boolean default 'false',
-            accepted boolean default 'false',
-            canceled boolean default 'false',
-            delivery_date TIMESTAMP
-            with time zone default null,
-            paid boolean default 'false',
-            canceled_by user_role,
-            cancel_reason text,
-            refund boolean default 'false',
             customer_email VARCHAR
             (255),
             vendor_email VARCHAR
@@ -89,6 +83,25 @@ CREATE TABLE users
             prod_creator_id uuid,
             created_at TIMESTAMP
             with time zone DEFAULT CURRENT_TIMESTAMP
+)
+
+--created after payment
+CREATE TABLE order_status 
+(
+   id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
+    transaction_id text not null, --From Paystack
+    order_id text NOT NULL,
+    delivery_fee int,
+    total_price int not null,
+    delivered boolean default 'false',
+    in_transit boolean default 'false', -- (Set to true when delivery person gathers it all) -- in transit
+    canceled boolean default 'false',
+    canceled_reason text default null
+    refund boolean default 'false',
+    paid boolean default 'true',
+    delivery_date TIMESTAMP with time zone default null
+    created_at TIMESTAMP with time zone DEFAULT CURRENT_TIMESTAMP
+
 )
 
 
