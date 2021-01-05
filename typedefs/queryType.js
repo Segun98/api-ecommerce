@@ -43,13 +43,10 @@ module.exports = gql `
     #Cart, gets all cart items for customer
     getCartItems:[cart]
 
-    #getCart - serves as order page
-    getCart(id:ID!):cart
-
     #Orders
     getCustomerOrders:[orders]
     getVendorOrders(limit:Int):[orders]
-    getOrder(id:ID!):orders
+    getOrder(order_id:ID!):[orders]
 
     #admin only
     getAllOrders:[orders]
