@@ -31,7 +31,7 @@ module.exports = {
         verifyJwt(req)
 
         try {
-            const order = await pool.query(`insert into orders (
+            await pool.query(`insert into orders (
                 order_id,
                  name,
             price,
