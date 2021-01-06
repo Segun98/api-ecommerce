@@ -31,7 +31,7 @@ module.exports = {
             throw new Error("Unauthorised")
         }
         try {
-            const orders = await pool.query(`select * from orders where prod_creator_id = $1 and paid = $2 order by created_at desc limit ${limit}`, [req.payload.user_id, 'true'])
+            const orders = await pool.query(`SELECT * from orders o INNER JOIN order_status os ON os.order_id = o.order_id WHERE o.prod_creator_id = $1 and os.paid = $2 ORDER BY o.created_at DESC LIMIT ${limit}`, [req.payload.user_id, 'true'])
             return orders.rows
         } catch (err) {
             throw new Error(err.message)
