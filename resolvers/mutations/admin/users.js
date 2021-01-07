@@ -17,7 +17,7 @@ module.exports = {
 
         try {
             //fetch a vendor's completed orders
-            const completed_orders = await pool.query(`select completed from orders where completed = $2 and prod_creator_id= $1`, [id, 'true'])
+            const completed_orders = await pool.query(`select o.order_id from orders o inner join order_status os on o.order_id = os.order_id where os.delivered = $2 and prod_creator_id= $1`, [id, 'true'])
             //get the length
             let completed_orders_length = completed_orders.rows.length
             //update users table with the length
