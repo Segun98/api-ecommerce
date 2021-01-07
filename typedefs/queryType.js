@@ -50,6 +50,7 @@ module.exports = gql `
 
     #admin only
     getAllOrders:[orders]
+    getOrderStatus:[order_status]
     #Query for products
     products(limit:Int): [productsRes],
 
