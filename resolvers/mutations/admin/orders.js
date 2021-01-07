@@ -5,6 +5,33 @@ const {
 
 
 module.exports = {
+
+    async setInTransit(_, {
+        order_id
+    }, {
+        pool,
+        req
+    }) {
+        verifyJwt(req)
+        const {
+            role_id
+        } = req.payload
+
+        if (!(role_id === "admin" || role_id === "super_admin")) {
+            throw new Error("Unauthorised, admin only")
+        }
+        try {
+            await pool.query(`update order_status set in_transit=$2 where order_id = $1`, [order_id, 'true'])
+
+            return {
+                message: "Order is in transit!"
+            }
+
+        } catch (err) {
+            throw new Error(err.message)
+        }
+    },
+
     async completeOrder(_, {
         order_id
     }, {

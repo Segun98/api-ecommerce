@@ -76,6 +76,7 @@ module.exports = gql `
 
           #Admin
           setUserStatus(pending:String!,id:ID!):customRes
+          setInTransit(order_id:ID!):customRes
           completeOrder(order_id:ID!):customRes,
           cancelOrderAdmin(order_id:ID!,canceled_reason:String):customRes
           updateCompleted(id:ID!):customRes
