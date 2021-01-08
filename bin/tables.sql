@@ -54,13 +54,13 @@ CREATE TABLE users
 )
 
 
--- alter table orders drop column delivery_fee, order_id, completed, accepted, canceled, delivery_date, paid, canceled_by, cancel_reason, refund
--- alter table orders add column order_id text not null
+        -- alter table orders drop column delivery_fee, order_id, completed, accepted, canceled, delivery_date, paid, canceled_by, cancel_reason, refund
+        -- alter table orders add column order_id text not null
 
         CREATE TABLE orders
         (
             -- id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
-           order_id text not null,
+            order_id text not null,
             name VARCHAR(255) NOT NULL,
             price int NOT NULL,
             quantity int,
@@ -85,47 +85,45 @@ CREATE TABLE users
             with time zone DEFAULT CURRENT_TIMESTAMP
 )
 
---created after payment
-CREATE TABLE order_status 
-(
-   id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
-    transaction_id text not null, --From Paystack
-    order_id text NOT NULL,
-    delivery_fee int,
-    total_price int not null,
-    delivered boolean default 'false',
-    in_transit boolean default 'false', -- (Set to true when delivery person gathers it all) -- in transit
-    canceled boolean default 'false',
-    canceled_reason text default null
-    refund boolean default 'false',
+            --created after payment
+            CREATE TABLE order_status
+            (
+                id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
+                transaction_id text not null,
+                --From Paystack
+                order_id text NOT NULL,
+                delivery_fee int,
+                total_price int not null,
+                delivered boolean default 'false',
+                in_transit boolean default 'false',
+                -- (Set to true when delivery person gathers it all) -- in transit
+                canceled boolean default 'false',
+                canceled_reason text default null
+                refund boolean default 'false',
     paid boolean default 'true',
-    delivery_date TIMESTAMP with time zone default null
-    created_at TIMESTAMP with time zone DEFAULT CURRENT_TIMESTAMP
+    delivery_date TIMESTAMP
+                with time zone default null
+    created_at TIMESTAMP
+                with time zone DEFAULT CURRENT_TIMESTAMP
 
 )
 
 
-            CREATE TABLE cart
-            (
-                id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
-                -- name VARCHAR(255) NOT NULL,
-                quantity int default 1 NOT NULL,
-                --     subtotal int generated always as
-                -- (price * quantity + delivery_fee) stored,
-                --     description VARCHAR
-                -- (255),
-                product_id uuid NOT NULL,
-                prod_creator_id uuid
-                    references users
+                -- alter table cart drop column customer_id
+                -- alter table cart add column customer_id uuid not null
+
+                CREATE TABLE cart
+                (
+                    id uuid DEFAULT uuid_generate_v4() NOT NULL PRIMARY KEY,
+                    quantity int default 1 NOT NULL,
+                    product_id uuid NOT NULL,
+                    prod_creator_id uuid
+                        references users
             (id) ON
             DELETE CASCADE ON
             UPDATE CASCADE NOT NULL,
-                customer_id uuid
-                    references users
-            (id) ON
-            DELETE CASCADE ON
-            UPDATE CASCADE NOT NULL,
-                created_at TIMESTAMP
-                with time zone DEFAULT CURRENT_TIMESTAMP
+                    customer_id uuid not null,
+                    created_at TIMESTAMP
+                    with time zone DEFAULT CURRENT_TIMESTAMP
 )
 

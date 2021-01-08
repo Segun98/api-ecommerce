@@ -12,7 +12,6 @@ module.exports = gql `
     created_at: String
 
     #nested query
-    cartCreator:usersRes
     product:productsRes
     productCreator:usersRes
   }

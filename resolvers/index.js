@@ -36,11 +36,6 @@ module.exports = {
     },
 
     cart: {
-        async cartCreator(parent, {}, {
-            loaderOne
-        }) {
-            return loaderOne.load("users", "id", parent.customer_id)
-        },
         async productCreator(parent, {}, {
             loaderOne
         }) {

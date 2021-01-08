@@ -5,20 +5,16 @@ const {
 
 module.exports = {
     async addToCart(_, {
+        customer_id,
         product_id,
         prod_creator_id,
         quantity
     }, {
-        pool,
-        req
+        pool
     }) {
-        verifyJwt(req)
-        if (req.payload.role_id !== "customer") {
-            throw new Error("You need to login as a customer")
-        }
 
         //checks if item exists. I cant write "where product_id..." cos table contains everyone's cart
-        const product = await pool.query(`select product_id from cart where customer_id = $1`, [req.payload.user_id])
+        const product = await pool.query(`select product_id from cart where customer_id = $1`, [customer_id])
         product.rows.forEach(p => {
             if (p.product_id === product_id) {
                 throw new Error("Item is already in Cart")
@@ -35,7 +31,7 @@ module.exports = {
                 product_id,
                 prod_creator_id,
                 quantity,
-                req.payload.user_id,
+                customer_id
             ])
 
             return {
@@ -51,10 +47,8 @@ module.exports = {
     async deleteFromCart(_, {
         id
     }, {
-        pool,
-        req
+        pool
     }) {
-        verifyJwt(req)
 
         try {
 
@@ -75,10 +69,9 @@ module.exports = {
         id,
         quantity
     }, {
-        pool,
-        req
+        pool
     }) {
-        verifyJwt(req)
+
         try {
             await pool.query(`update cart set quantity = $2 where id = $1`, [id, quantity])
 
