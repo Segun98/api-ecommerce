@@ -85,15 +85,15 @@ module.exports = {
     },
 
     //After successfull payment
-    async deleteAllFromCart(_, {}, {
-        pool,
-        req
+    async deleteAllFromCart(_, {
+        customer_id
+    }, {
+        pool
     }) {
-        verifyJwt(req)
 
         try {
 
-            await pool.query(`delete from cart where customer_id = $1`, [req.payload.user_id])
+            await pool.query(`delete from cart where customer_id = $1`, [customer_id])
 
             return {
                 message: "Cart cleared!"

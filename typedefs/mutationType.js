@@ -49,7 +49,7 @@ module.exports = gql `
           prod_creator_id: ID!, quantity:Int):customRes
 
           deleteFromCart(id:ID):customRes
-          deleteAllFromCart:customRes
+          deleteAllFromCart(customer_id:ID!):customRes
           updateCart(id:ID, quantity:Int):customRes
 
           # ORDERS
