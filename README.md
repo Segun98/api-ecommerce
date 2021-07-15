@@ -1,4 +1,4 @@
-[I explained what I learned and used in this project here](https://segunos.vercel.app/partystore#top)
+[I explained what I learned and used in this project here](https://segun.tech/tadlace)
 
 ### Back-End of a "full-featured" e-commerce website
 
